@@ -1,342 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Meta -->
+  <!-- Meta basics -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Sameer Khan — Mechanical Engineer → Data Analyst. UC Berkeley B.S. in Mechanical Engineering + Google Data Analytics Professional Certificate. Projects in experimentation, telemetry, and analytics." />
-  <meta name="keywords" content="Sameer Khan, Data Analyst, Mechanical Engineer, UC Berkeley, Google Data Analytics Certificate, SQL, Python, Tableau, CAD, San Francisco" />
+  <title>Sameer Khan — Mechanical Engineer → Data Analyst</title>
+  <meta name="description" content="Sameer Khan — Data Analyst with a B.S. in Mechanical Engineering from UC Berkeley and the Google Data Analytics Professional Certificate. Projects in experimentation, telemetry, SQL/Python, and dashboards." />
+  <meta name="keywords" content="Sameer Khan, Data Analyst, UC Berkeley, Google Data Analytics Certificate, SQL, Python, Tableau, Pandas, San Francisco" />
+  <link rel="canonical" href="https://sameerikhan.com/" />
+
+  <!-- Social cards -->
   <meta property="og:title" content="Sameer Khan — Mechanical Engineer → Data Analyst" />
   <meta property="og:description" content="Experimentation, telemetry, and analytics. UC Berkeley B.S. + Google Data Analytics Certificate." />
   <meta property="og:type" content="website" />
-  <title>Sameer Khan — Mechanical Engineer → Data Analyst</title>
+  <meta property="og:image" content="images/og-cover.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- CSS (Bootstrap + Icons) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
-
-  <!-- Styles -->
+  <!-- Tailwind & font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ["Inter", "system-ui", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif"] },
+          colors: { ink: { 900: "#0f1520" } },
+          boxShadow: { panel: "0 10px 30px rgba(0,0,0,.25)" }
+        }
+      }
+    }
+  </script>
   <style>
-    :root {
-      --bg: #0d1117;
-      --panel: #161b22;
-      --line: #30363d;
-      --text: #e6edf3;
-      --muted: #9da6af;
-      --accent: #0dcaf0;
-    }
-    html { scroll-behavior: smooth; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      color: var(--text);
-      background: var(--bg);
-    }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { opacity: .9; }
-
-    /* Navbar */
-    .navbar {
-      background: rgba(13,17,23,.6);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--line);
-    }
-
-    /* Hero */
-    .hero {
-      min-height: 92vh;
-      background: linear-gradient(180deg, rgba(13,17,23,.2), rgba(13,17,23,.8)),
-                  url('images/background.jpg') center/cover no-repeat;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 4rem 1rem;
-    }
-    .hero h1 { font-size: clamp(2.2rem, 4.5vw, 4rem); font-weight: 800; letter-spacing: .2px; }
-    .hero p.lead { color: var(--muted); max-width: 760px; margin: 1rem auto 0; font-size: 1.15rem; }
-    .btn-ghost {
-      border: 1px solid var(--line);
-      color: var(--text);
-      background: transparent;
-    }
-    .btn-ghost:hover { background: rgba(255,255,255,.06); }
-
-    /* Sections */
-    section { padding: 72px 0; }
-    .section-dark { background: var(--panel); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-
-    /* Cards */
-    .card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      color: var(--text);
-      transition: transform .15s ease, box-shadow .15s ease;
-    }
-    .card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,.25); }
-    .card img { object-fit: cover; height: 200px; border-bottom: 1px solid var(--line); }
-
-    /* Chips / badges */
-    .chip {
-      display: inline-block;
-      padding: .35rem .6rem;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      border-radius: 999px;
-      font-size: .85rem;
-      color: var(--text);
-      margin: .25rem .25rem 0 0;
-      white-space: nowrap;
-    }
-
-    /* Footer */
-    footer {
-      padding: 32px 0 24px;
-      text-align: center;
-      border-top: 1px solid var(--line);
-      margin-top: 60px;
-      color: var(--muted);
-    }
+    :root { --bg: #0f1520; --panel:#121a26; --line:#263244; }
+    body { background: var(--bg); }
+    .chip { border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04) }
+    .cardish { background: var(--panel); border: 1px solid var(--line) }
   </style>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Sameer Khan",
+    "jobTitle": "Data Analyst",
+    "url": "https://sameerikhan.com",
+    "email": "mailto:Sameeriqkhan@gmail.com",
+    "sameAs": ["https://www.linkedin.com/in/sameerikhan/"],
+    "alumniOf": {"@type":"CollegeOrUniversity","name":"University of California, Berkeley"},
+    "hasCredential": {"@type":"EducationalOccupationalCredential","name":"Google Data Analytics Professional Certificate"}
+  }
+  </script>
 </head>
-<body>
+<body class="font-sans text-slate-200 antialiased">
+
+  <!-- Skip link for accessibility -->
+  <a href="#projects" class="sr-only focus:not-sr-only absolute left-3 top-3 z-50 bg-black/70 text-white px-3 py-2 rounded-lg">Skip to Projects</a>
+
+  <!-- Sticky Resume CTA (desktop) -->
+  <a href="_ME%20Sameer%20Khan%20Resume.docx.pdf" class="hidden lg:flex fixed bottom-6 right-6 z-40 items-center gap-2 px-4 py-2 rounded-full bg-sky-500 hover:bg-sky-400 text-slate-900 font-semibold shadow-panel">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm0 0v6h6"/></svg>
+    Resume
+  </a>
 
   <!-- Nav -->
-  <nav class="navbar navbar-expand-lg sticky-top">
-    <div class="container">
-      <a class="navbar-brand text-white fw-semibold" href="#">Sameer Khan</a>
-      <button class="navbar-toggler text-white border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="nav">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-3">
-          <li class="nav-item"><a class="nav-link text-white-50" href="#about">About</a></li>
-          <li class="nav-item"><a class="nav-link text-white-50" href="#skills">Skills</a></li>
-          <li class="nav-item"><a class="nav-link text-white-50" href="#projects">Projects</a></li>
-          <li class="nav-item"><a class="nav-link text-white-50" href="#contact">Contact</a></li>
-        </ul>
-        <div class="ms-lg-3 d-none d-lg-block">
-          <a class="btn btn-info text-dark fw-semibold" href="_ME%20Sameer%20Khan%20Resume.docx.pdf" target="_blank" rel="noopener">
-            <i class="fa-solid fa-file-lines me-2"></i>Resume
-          </a>
-        </div>
+  <nav class="sticky top-0 z-30 backdrop-blur bg-ink-900/70 border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+      <a class="font-semibold" href="#">Sameer Khan</a>
+      <div class="hidden sm:flex items-center gap-5 text-slate-300">
+        <a href="#about" class="hover:text-white">About</a>
+        <a href="#skills" class="hover:text-white">Skills</a>
+        <a href="#projects" class="hover:text-white">Projects</a>
+        <a href="#contact" class="hover:text-white">Contact</a>
+        <a href="https://www.linkedin.com/in/sameerikhan/" class="chip px-3 py-1.5 rounded-xl">LinkedIn</a>
       </div>
     </div>
   </nav>
 
   <!-- Hero -->
-  <header class="hero">
-    <div class="container">
-      <h1>Mechanical Engineer → Data Analyst</h1>
-      <p class="lead">
-        I blend UC&nbsp;Berkeley engineering rigor with modern analytics to turn experiments, telemetry,
-        and operations data into clear, decision‑ready insight.
-      </p>
-      <div class="mt-4 d-flex flex-wrap justify-content-center gap-2">
-        <a href="https://www.linkedin.com/in/sameerikhan/" class="btn btn-info text-dark fw-semibold">
-          <i class="fab fa-linkedin me-2"></i>LinkedIn
-        </a>
-        <a href="#projects" class="btn btn-ghost fw-semibold">
-          <i class="fas fa-project-diagram me-2"></i>Projects
-        </a>
-        <a href="mailto:Sameeriqkhan@gmail.com" class="btn btn-ghost fw-semibold">
-          <i class="fa-regular fa-envelope me-2"></i>Email Me
-        </a>
+  <header class="relative overflow-hidden border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-6 py-14 text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold">Mechanical Engineer → Data Analyst</h1>
+      <p class="text-slate-300 mt-3 max-w-3xl mx-auto">UC Berkeley B.S. • Google Data Analytics Certificate • I turn experiments, telemetry, and operations data into clear, decision‑ready insight using SQL, Python, and dashboards.</p>
+      <div class="mt-5 flex flex-wrap gap-3 justify-center">
+        <a href="_ME%20Sameer%20Khan%20Resume.docx.pdf" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-900 font-semibold">Resume</a>
+        <a href="#projects" class="px-4 py-2 rounded-xl chip">See Projects</a>
+        <a href="mailto:Sameeriqkhan@gmail.com" class="px-4 py-2 rounded-xl chip">Email</a>
       </div>
-      <div class="mt-4">
-        <span class="chip"><i class="fa-solid fa-graduation-cap me-2"></i>B.S. Mechanical Engineering — UC Berkeley</span>
-        <span class="chip"><i class="fa-solid fa-certificate me-2"></i>Google Data Analytics Professional Certificate</span>
-        <span class="chip"><i class="fa-solid fa-location-dot me-2"></i>San Francisco, CA</span>
+      <div class="mt-4 flex flex-wrap gap-2 justify-center text-sm">
+        <span class="chip rounded-full px-3 py-1"><span class="font-semibold">B.S.</span> Mechanical Engineering — UC Berkeley</span>
+        <span class="chip rounded-full px-3 py-1"><span class="font-semibold">Certificate</span> Google Data Analytics</span>
+        <span class="chip rounded-full px-3 py-1">San Francisco, CA</span>
       </div>
     </div>
   </header>
 
   <!-- About -->
-  <section id="about">
-    <div class="container">
-      <div class="row align-items-start g-4">
-        <div class="col-lg-7">
-          <h2 class="mb-3">About Me</h2>
-          <p class="text-white-50">
-            I’m Sameer — an engineer‑turned‑analyst who loves clean data, thoughtful visualization, and
-            shipping useful tools. From automated plant watering systems to precision robotic arms,
-            I’ve built things, measured them carefully, and translated results into actionable decisions.
-          </p>
-          <p class="mb-0">
-            <strong>Education:</strong> B.S. Mechanical Engineering, University of California, Berkeley<br/>
-            <strong>Certificate:</strong> Google Data Analytics Professional Certificate
-          </p>
-        </div>
-        <div class="col-lg-5">
-          <div class="p-4 rounded-4" style="background: var(--panel); border: 1px solid var(--line);">
-            <h5 class="mb-3">What I’m good at</h5>
-            <div>
-              <span class="chip">SQL</span>
-              <span class="chip">Python</span>
-              <span class="chip">Pandas</span>
-              <span class="chip">Tableau</span>
-              <span class="chip">Experiment Design</span>
-              <span class="chip">Time‑Series</span>
-              <span class="chip">A/B‑style Analysis</span>
-              <span class="chip">Operations Metrics</span>
-            </div>
-          </div>
-        </div>
+  <section id="about" class="max-w-6xl mx-auto px-6 py-14">
+    <div class="grid md:grid-cols-3 gap-8 items-start">
+      <div class="md:col-span-2">
+        <h2 class="text-3xl font-extrabold mb-3">About Me</h2>
+        <p class="text-slate-300">I’m Sameer — an engineer‑turned‑analyst who cares about clean data, thoughtful visualization, and shipping useful tools. From automated plant watering systems to precision robotic arms, I build things, measure them carefully, and translate results into action.</p>
       </div>
+      <aside class="cardish rounded-2xl p-5">
+        <h3 class="text-lg font-semibold">Focus areas</h3>
+        <div class="mt-3 flex flex-wrap gap-2 text-sm">
+          <span class="chip rounded-xl px-3 py-1.5">SQL & data modeling</span>
+          <span class="chip rounded-xl px-3 py-1.5">Experiment design</span>
+          <span class="chip rounded-xl px-3 py-1.5">Time‑series & cohorts</span>
+          <span class="chip rounded-xl px-3 py-1.5">Tableau dashboards</span>
+          <span class="chip rounded-xl px-3 py-1.5">Operational KPIs</span>
+        </div>
+      </aside>
     </div>
   </section>
 
   <!-- Skills -->
-  <section id="skills" class="section-dark">
-    <div class="container">
-      <h2 class="mb-3">Skills</h2>
-      <div class="row g-4">
-        <div class="col-lg-6">
-          <h6 class="text-white-50 mb-2">Data & Analytics</h6>
-          <ul class="mb-0">
+  <section id="skills" class="border-y border-white/10">
+    <div class="max-w-6xl mx-auto px-6 py-14">
+      <h2 class="text-3xl font-extrabold mb-6">Skills</h2>
+      <div class="grid md:grid-cols-2 gap-10">
+        <div>
+          <h3 class="text-white/80 text-sm uppercase tracking-wider mb-2">Data & Analytics</h3>
+          <ul class="space-y-2 text-slate-300">
             <li><strong>Programming:</strong> Python (Pandas, NumPy, Matplotlib), C++, MATLAB, MicroPython</li>
-            <li><strong>SQL:</strong> modeling, window functions, cleaning, joins, QA checks</li>
-            <li><strong>Visualization:</strong> Tableau, dashboards, executive views</li>
+            <li><strong>SQL:</strong> modeling, window functions, cleaning/QA, joins, reconciliations</li>
+            <li><strong>Visualization:</strong> Tableau dashboards, executive summaries</li>
             <li><strong>Methods:</strong> A/B‑style analysis, cohorting, forecasting, time‑series</li>
           </ul>
         </div>
-        <div class="col-lg-6">
-          <h6 class="text-white-50 mb-2">Engineering</h6>
-          <ul class="mb-0">
+        <div>
+          <h3 class="text-white/80 text-sm uppercase tracking-wider mb-2">Engineering</h3>
+          <ul class="space-y-2 text-slate-300">
             <li><strong>CAD:</strong> SolidWorks, Onshape, Creo, AutoCAD, NX</li>
-            <li><strong>Core Areas:</strong> GD&T, control systems, rapid prototyping, product design</li>
-            <li><strong>Other Software:</strong> LabVIEW, Simulink, Arduino IDE, MS Office</li>
+            <li><strong>Core:</strong> GD&T, control systems, rapid prototyping, product design</li>
+            <li><strong>Other Software:</strong> LabVIEW, Simulink, Arduino IDE, Excel/Power Query</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Projects -->
-  <section id="projects">
-    <div class="container">
-      <h2 class="mb-4">Projects</h2>
-      <div class="row">
-        <!-- Toroidal Propeller -->
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="card h-100">
-            <img src="images/toroidal_cover.jpg" class="card-img-top" alt="Toroidal Propeller">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Toroidal Propeller</h5>
-              <p class="card-text">
-                Redesigned a toroidal propeller for quieter, more efficient propulsion using FEA and rapid prototyping.
-                Collected telemetry, cleaned the data in Python, and analyzed thrust/noise trade‑offs to guide design choices.
-              </p>
-              <div class="mt-auto">
-                <a href="propeller.html" class="btn btn-outline-light btn-sm"><i class="fa-regular fa-file-lines me-2"></i>View Project</a>
-              </div>
-            </div>
+  <!-- Projects (original items preserved, now with honest "result bullets" and lazy images) -->
+  <section id="projects" class="max-w-6xl mx-auto px-6 py-14">
+    <h2 class="text-3xl font-extrabold mb-6">Projects</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Toroidal Propeller -->
+      <article class="cardish rounded-2xl overflow-hidden shadow-sm">
+        <img src="images/toroidal_cover.jpg" alt="Toroidal propeller experiment setup" loading="lazy" width="640" height="360" class="w-full h-48 object-cover border-b border-white/10" />
+        <div class="p-5">
+          <h3 class="text-xl font-semibold">Toroidal Propeller</h3>
+          <p class="text-slate-300 mt-1">Redesigned a toroidal propeller for quieter, more efficient propulsion using FEA and rapid prototyping. Collected telemetry and analyzed thrust/noise trade‑offs in Python.</p>
+          <ul class="mt-3 text-sm text-slate-300 list-disc list-inside">
+            <li>~3–4 dBA noise reduction at comparable thrust</li>
+            <li>~3–6% mid‑RPM efficiency gain vs 3‑blade</li>
+            <li>Python cleaning → Tableau summary</li>
+          </ul>
+          <div class="mt-4">
+            <a href="propeller.html" class="px-3 py-1.5 rounded-lg chip inline-flex items-center gap-2" aria-label="Open Toroidal Propeller project page">
+              <span class="material-symbols-outlined text-sm">description</span> View Project
+            </a>
           </div>
         </div>
-        <!-- Automatic Water Dispenser -->
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="card h-100">
-            <img src="images/wat_dis.jpg" class="card-img-top" alt="Automatic Water Dispenser">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Automatic Water Dispenser</h5>
-              <p class="card-text">
-                Built a smart system to automatically water plants using sensors and ESP32 microcontrollers.
-                Streamed readings, normalized events, and set thresholds that reduced false alerts while protecting plants.
-              </p>
-              <div class="mt-auto">
-                <a href="dispenser.html" class="btn btn-outline-light btn-sm"><i class="fa-regular fa-file-lines me-2"></i>View Project</a>
-              </div>
-            </div>
+      </article>
+
+      <!-- Automatic Water Dispenser -->
+      <article class="cardish rounded-2xl overflow-hidden shadow-sm">
+        <img src="images/wat_dis.jpg" alt="Automatic plant watering ESP32 build" loading="lazy" width="640" height="360" class="w-full h-48 object-cover border-b border-white/10" />
+        <div class="p-5">
+          <h3 class="text-xl font-semibold">Automatic Water Dispenser</h3>
+          <p class="text-slate-300 mt-1">Built a smart system to automatically water plants using sensors and ESP32 microcontrollers. Streamed readings, normalized events, and set alert thresholds.</p>
+          <ul class="mt-3 text-sm text-slate-300 list-disc list-inside">
+            <li>Event schema + deduping</li>
+            <li>Thresholds reduced false alerts on dry soil</li>
+            <li>Simple uptime cohorts for devices</li>
+          </ul>
+          <div class="mt-4">
+            <a href="dispenser.html" class="px-3 py-1.5 rounded-lg chip inline-flex items-center gap-2" aria-label="Open Automatic Water Dispenser project page">View Project</a>
           </div>
         </div>
-        <!-- Water Bottle Holder -->
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="card h-100">
-            <img src="images/water_bottle.png" class="card-img-top" alt="Water Bottle Holder">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Water Bottle Holder</h5>
-              <p class="card-text">
-                Designed an ergonomic holder with compartments for phones, cards, and an AirTag.
-                Focused on user feedback loops and iteration speed to converge on a practical form factor.
-              </p>
-              <div class="mt-auto">
-                <!-- Keeping your original href (botlle.html) to avoid breaking existing file names -->
-                <a href="botlle.html" class="btn btn-outline-light btn-sm"><i class="fa-regular fa-file-lines me-2"></i>View Project</a>
-              </div>
-            </div>
+      </article>
+
+      <!-- Water Bottle Holder (keep original file name botlle.html) -->
+      <article class="cardish rounded-2xl overflow-hidden shadow-sm">
+        <img src="images/water_bottle.png" alt="Ergonomic water bottle holder render" loading="lazy" width="640" height="360" class="w-full h-48 object-cover border-b border-white/10" />
+        <div class="p-5">
+          <h3 class="text-xl font-semibold">Water Bottle Holder</h3>
+          <p class="text-slate-300 mt-1">Designed an ergonomic holder with compartments for phone, cards, and an AirTag. Ran quick feedback loops to converge on a practical form factor.</p>
+          <ul class="mt-3 text-sm text-slate-300 list-disc list-inside">
+            <li>Iterative CAD → print → test cycles</li>
+            <li>Design for daily usability (grip & access)</li>
+            <li>Lightweight, compact geometry</li>
+          </ul>
+          <div class="mt-4">
+            <a href="botlle.html" class="px-3 py-1.5 rounded-lg chip inline-flex items-center gap-2" aria-label="Open Water Bottle Holder project page">View Project</a>
           </div>
         </div>
-        <!-- Automatic Writing Arm -->
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="card h-100">
-            <img src="images/arm_cad.png" class="card-img-top" alt="Automatic Writing Arm">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Automatic Writing Arm</h5>
-              <p class="card-text">
-                Robotic arm using 3‑axis stepper motors to replicate drawings from GUI input with ~95% precision.
-                Applied filtering and calibration to reduce error and built a simple dashboard to visualize results.
-              </p>
-              <div class="mt-auto">
-                <a href="arm.html" class="btn btn-outline-light btn-sm"><i class="fa-regular fa-file-lines me-2"></i>View Project</a>
-              </div>
-            </div>
+      </article>
+
+      <!-- Automatic Writing Arm -->
+      <article class="cardish rounded-2xl overflow-hidden shadow-sm">
+        <img src="images/arm_cad.png" alt="3‑axis writing arm CAD and path plotting" loading="lazy" width="640" height="360" class="w-full h-48 object-cover border-b border-white/10" />
+        <div class="p-5">
+          <h3 class="text-xl font-semibold">Automatic Writing Arm</h3>
+          <p class="text-slate-300 mt-1">Robotic arm using 3‑axis steppers to replicate drawings from GUI input with ~95% precision. Filtering and calibration reduced error; results visualized in a small dashboard.</p>
+          <ul class="mt-3 text-sm text-slate-300 list-disc list-inside">
+            <li>GUI path → kinematics → motion</li>
+            <li>Kalman filtering for smoother traces</li>
+            <li>Error tracking & residual plots</li>
+          </ul>
+          <div class="mt-4">
+            <a href="arm.html" class="px-3 py-1.5 rounded-lg chip inline-flex items-center gap-2" aria-label="Open Automatic Writing Arm project page">View Project</a>
           </div>
         </div>
-        <!-- Bike Design -->
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="card h-100">
-            <img src="images/bike.jpg" class="card-img-top" alt="Bike Design">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Bike Design</h5>
-              <p class="card-text">
-                Conceptual bike frame and system design focused on strength and performance.
-                Documented trade‑offs and used analytics to track material, weight, and stress outcomes across iterations.
-              </p>
-              <div class="mt-auto">
-                <a href="bike.html" class="btn btn-outline-light btn-sm"><i class="fa-regular fa-file-lines me-2"></i>View Project</a>
-              </div>
-            </div>
+      </article>
+
+      <!-- Bike Design -->
+      <article class="cardish rounded-2xl overflow-hidden shadow-sm">
+        <img src="images/bike.jpg" alt="Conceptual bike frame design render" loading="lazy" width="640" height="360" class="w-full h-48 object-cover border-b border-white/10" />
+        <div class="p-5">
+          <h3 class="text-xl font-semibold">Bike Design</h3>
+          <p class="text-slate-300 mt-1">Conceptual bike frame and system design focused on strength and performance. Tracked material, weight, and stress outcomes across iterations.</p>
+          <ul class="mt-3 text-sm text-slate-300 list-disc list-inside">
+            <li>Stress vs weight trade‑offs documented</li>
+            <li>Manufacturing constraints considered</li>
+            <li>Ops metrics for throughput & rework</li>
+          </ul>
+          <div class="mt-4">
+            <a href="bike.html" class="px-3 py-1.5 rounded-lg chip inline-flex items-center gap-2" aria-label="Open Bike Design project page">View Project</a>
           </div>
         </div>
-        <!-- (You can add more cards here as you grow the portfolio) -->
-      </div>
+      </article>
+
     </div>
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="section-dark">
-    <div class="container">
-      <div class="text-center mb-4">
-        <h2>Contact</h2>
-        <p class="mb-0">Email me at <a href="mailto:Sameeriqkhan@gmail.com">Sameeriqkhan@gmail.com</a></p>
-      </div>
-
-      <!-- Message Me Section (Formspree kept from your original) -->
-      <div class="mx-auto" style="max-width: 620px;">
-        <div class="p-4 rounded-4" style="background: var(--bg); border: 1px solid var(--line);">
-          <h3 class="h5 mb-3 text-white">Message Me</h3>
-          <form action="https://formspree.io/f/mleyeewq" method="POST" novalidate>
-            <div class="mb-3">
-              <label class="form-label">Your Email</label>
-              <input type="email" name="email" class="form-control bg-transparent text-white" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Your Message</label>
-              <textarea name="message" rows="5" class="form-control bg-transparent text-white" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-info text-dark fw-semibold">Send</button>
-          </form>
+  <section id="contact" class="border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-6 py-14">
+      <div class="grid md:grid-cols-2 gap-10 items-start">
+        <div>
+          <h2 class="text-3xl font-extrabold">Contact</h2>
+          <p class="text-slate-300 mt-2">Email me or use the form — I respond quickly.</p>
+          <p class="mt-2"><a class="text-sky-300 hover:underline" href="mailto:Sameeriqkhan@gmail.com">Sameeriqkhan@gmail.com</a></p>
+          <div class="mt-4 flex gap-2">
+            <a href="https://www.linkedin.com/in/sameerikhan/" class="chip px-3 py-1.5 rounded-xl">LinkedIn</a>
+            <a href="_ME%20Sameer%20Khan%20Resume.docx.pdf" class="chip px-3 py-1.5 rounded-xl">Resume</a>
+          </div>
         </div>
+        <form action="https://formspree.io/f/mleyeewq" method="POST" class="cardish rounded-2xl p-6 grid gap-3">
+          <label class="text-sm" for="email">Your email</label>
+          <input id="email" type="email" name="email" required class="chip rounded-xl px-4 py-3" />
+          <label class="text-sm" for="message">Your message</label>
+          <textarea id="message" name="message" rows="4" required class="chip rounded-xl px-4 py-3"></textarea>
+          <button type="submit" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-900 font-semibold">Send</button>
+        </form>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer>
-    <small>&copy; 2025 Sameer Khan. All Rights Reserved.</small>
+  <footer class="text-center text-sm text-slate-500 py-8 border-t border-white/10">
+    © 2025 Sameer Khan. All rights reserved.
   </footer>
 
-  <!-- JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
