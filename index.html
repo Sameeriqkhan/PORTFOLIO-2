@@ -4,404 +4,50 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sameer Khan — Mechanical Engineer → Data Analyst</title>
-  <meta name="description" content="Sameer Khan — data analyst with a mechanical engineering background, specializing in experimentation, dashboards, SQL/Python pipelines, and clear storytelling with data." />
+  <meta name="description" content="Sameer Khan — data analyst with a mechanical engineering background, delivering insights through rigorous analysis, compelling visuals, and actionable strategies." />
   <meta name="keywords" content="Sameer Khan, Data Analyst, SQL, Python, Tableau, Pandas, UC Berkeley, San Francisco" />
-  <meta property="og:title" content="Sameer Khan — Data Analyst Portfolio" />
-  <meta property="og:description" content="Experimentation, analytics engineering, and vivid data storytelling." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://sameerikhan.com" />
-  <meta name="theme-color" content="#0ea5e9" />
-
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { sans: ["Inter", "system-ui", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif"] },
-          colors: {
-            ink: {
-              50: "#f8fafc",
-              100: "#eef2f7",
-              200: "#d7dde7",
-              300: "#b9c1d1",
-              400: "#8e9ab1",
-              500: "#6b7f9b",
-              600: "#546580",
-              700: "#435066",
-              800: "#2e3847",
-              900: "#1b2431",
-              950: "#0f1520"
-            }
-          },
-          boxShadow: { glow: "0 0 0 0 rgba(14,165,233,0), 0 0 80px 10px rgba(14,165,233,.15) inset" }
+          fontFamily: { sans: ["Inter", "system-ui"] },
+          colors: { ink: { 900: "#0f1520" } }
         }
-      },
-      darkMode: "class"
+      }
     }
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <!-- Chart.js & PapaParse for the in-page demo -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* Subtle noise and grid for depth */
-    body { background: radial-gradient(1200px 800px at 80% -10%, rgba(14,165,233,.08), rgba(14,165,233,0) 60%) , #0f1520; }
-    .prose { color: #e5e7eb }
-    .glass { backdrop-filter: blur(8px); background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border: 1px solid rgba(255,255,255,.08) }
+    body { background: #0f1520; }
     .chip { border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04) }
-    .tag { border: 1px solid rgba(14,165,233,.3); background: rgba(14,165,233,.1) }
-    html { scroll-behavior: smooth }
-    @media print {
-      .no-print { display:none }
-      body { background: #fff }
-    }
   </style>
 </head>
-<body class="font-sans text-slate-200 antialiased">
-  <!-- Header / Hero -->
-  <header class="relative overflow-hidden">
-    <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-      <a href="#" class="text-xl font-bold tracking-tight">Sameer Khan</a>
-      <div class="hidden sm:flex items-center gap-4">
-        <a href="#work" class="hover:text-white/90">Case Studies</a>
-        <a href="#skills" class="hover:text-white/90">Skills</a>
-        <a href="#demo" class="hover:text-white/90">Live Demo</a>
-        <a href="#contact" class="hover:text-white/90">Contact</a>
-        <a href="_ME%20Sameer%20Khan%20Resume.docx.pdf" class="px-3 py-1.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-white text-sm font-semibold">Resume</a>
-      </div>
-    </nav>
-
-    <section class="max-w-7xl mx-auto px-6 pt-10 pb-20 md:pt-16 md:pb-28">
-      <div class="grid md:grid-cols-2 gap-10 items-center">
-        <div>
-          <div class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-slate-300/80 mb-4">
-            <span class="inline-flex items-center gap-1 bg-sky-500/10 text-sky-300 px-2 py-1 rounded">Transition</span>
-            Mechanical Engineer → Data Analyst
-          </div>
-          <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">Turning experiments into insights,<br class="hidden md:block"/> and insights into impact.</h1>
-          <p class="mt-5 text-slate-300 text-lg">I’m a San Francisco–based analyst with a UC Berkeley MechE background. I design experiments, build clean datasets, and ship dashboards that drive decisions. Comfortable at the intersection of hardware signals and business metrics.</p>
-          <div class="mt-6 flex flex-wrap gap-3">
-            <a href="#work" class="px-4 py-2 rounded-xl bg-white text-slate-900 font-semibold hover:opacity-90">View Case Studies</a>
-            <a href="mailto:Sameeriqkhan@gmail.com" class="px-4 py-2 rounded-xl chip hover:bg-white/10">Email me</a>
-            <a class="px-4 py-2 rounded-xl chip hover:bg-white/10" href="https://www.linkedin.com/in/sameerikhan/" target="_blank" rel="noopener">LinkedIn</a>
-          </div>
-        </div>
-        <div class="glass rounded-3xl p-6 shadow-glow">
-          <h3 class="text-xl font-semibold mb-3">Quick Stats</h3>
-          <ul class="grid grid-cols-2 gap-4 text-sm">
-            <li class="chip rounded-xl p-3"><span class="text-slate-400">Toolbox</span><br><span class="font-semibold">SQL · Python · dbt · Airflow · Tableau · Excel</span></li>
-            <li class="chip rounded-xl p-3"><span class="text-slate-400">Methods</span><br><span class="font-semibold">A/B testing · Forecasting · Time‑series · Cohorts</span></li>
-            <li class="chip rounded-xl p-3"><span class="text-slate-400">Code</span><br><span class="font-semibold">Pandas · NumPy · Matplotlib · scikit‑learn</span></li>
-            <li class="chip rounded-xl p-3"><span class="text-slate-400">Domains</span><br><span class="font-semibold">Hardware telemetry · Operations · Finance</span></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-  </header>
-
-  <!-- Case Studies -->
-  <section id="work" class="max-w-7xl mx-auto px-6 py-12">
-    <div class="mb-8">
-      <h2 class="text-3xl md:text-4xl font-extrabold">Selected Case Studies</h2>
-      <p class="text-slate-300 mt-2">Engineering rigor meets analytical storytelling. Each project links to code, data, and a concise readme.</p>
-    </div>
-
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Case Study 1 -->
-      <article class="glass rounded-3xl overflow-hidden">
-        <img src="images/toroidal_cover.jpg" alt="Toroidal propeller experiment" class="w-full h-44 object-cover">
-        <div class="p-6">
-          <h3 class="text-xl font-bold">Experiment Analysis: Toroidal vs 3‑Blade Propellers</h3>
-          <p class="text-slate-300 mt-2">Designed and ran controlled tests using Arduino telemetry. Cleaned sensor data, modeled thrust/power curves, and quantified noise deltas.</p>
-          <ul class="mt-3 text-sm space-y-1">
-            <li>• <span class="font-semibold">−3.8 dBA</span> mean noise at equivalent thrust</li>
-            <li>• <span class="font-semibold">+6.2%</span> power efficiency in mid‑RPM band</li>
-            <li>• Delivered interactive report in <span class="font-semibold">Tableau</span> and <span class="font-semibold">Jupyter</span></li>
-          </ul>
-          <div class="flex flex-wrap gap-2 mt-4">
-            <span class="tag px-3 py-1 rounded-full text-xs">pandas</span>
-            <span class="tag px-3 py-1 rounded-full text-xs">scikit‑learn</span>
-            <span class="tag px-3 py-1 rounded-full text-xs">A/B style analysis</span>
-          </div>
-          <div class="mt-4 flex gap-3 text-sm">
-            <a class="text-sky-300 hover:underline" href="#" aria-label="Open code repo (placeholder)">Code</a>
-            <a class="text-sky-300 hover:underline" href="#" aria-label="Open writeup (placeholder)">Writeup</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Case Study 2 -->
-      <article class="glass rounded-3xl overflow-hidden">
-        <img src="images/arm_cad.png" alt="Robotic arm path reproduction" class="w-full h-44 object-cover">
-        <div class="p-6">
-          <h3 class="text-xl font-bold">Vision‑to‑Motion: Reproducibility & Error Modeling</h3>
-          <p class="text-slate-300 mt-2">Mapped GUI‑drawn paths to 3‑axis motion; built an error model to improve precision from 91% → <span class="font-semibold">95%</span> with Kalman filtering.</p>
-          <ul class="mt-3 text-sm space-y-1">
-            <li>• Outlier handling with RANSAC</li>
-            <li>• Residual diagnostics and confidence bands</li>
-            <li>• Deployed metrics dashboard</li>
-          </ul>
-          <div class="flex flex-wrap gap-2 mt-4">
-            <span class="tag px-3 py-1 rounded-full text-xs">numpy</span>
-            <span class="tag px-3 py-1 rounded-full text-xs">matplotlib</span>
-            <span class="tag px-3 py-1 rounded-full text-xs">time‑series</span>
-          </div>
-          <div class="mt-4 flex gap-3 text-sm">
-            <a class="text-sky-300 hover:underline" href="#">Code</a>
-            <a class="text-sky-300 hover:underline" href="#">Report</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Case Study 3 -->
-      <article class="glass rounded-3xl overflow-hidden">
-        <img src="images/wat_dis.jpg" alt="Automated plant watering telemetry" class="w-full h-44 object-cover">
-        <div class="p-6">
-          <h3 class="text-xl font-bold">IoT Telemetry → Cohorts & Alerts</h3>
-          <p class="text-slate-300 mt-2">Streamed ESP32 sensor data, normalized events, and built cohort retention on device uptime/alerts with a <span class="font-semibold">dbt</span> mart.</p>
-          <ul class="mt-3 text-sm space-y-1">
-            <li>• Event schema + deduping model</li>
-            <li>• Airflow DAG for daily backfills</li>
-            <li>• Alerting thresholds from ROC analysis</li>
-          </ul>
-          <div class="flex flex-wrap gap-2 mt-4">
-            <span class="tag px-3 py-1 rounded-full text-xs">dbt</span>
-            <span class="tag px-3 py-1 rounded-full text-xs">Airflow</span>
-            <span class="tag px-3 py-1 rounded-full text-xs">Tableau</span>
-          </div>
-          <div class="mt-4 flex gap-3 text-sm">
-            <a class="text-sky-300 hover:underline" href="#">DAG</a>
-            <a class="text-sky-300 hover:underline" href="#">Dashboard</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Case Study 4 (Finance angle) -->
-      <article class="glass rounded-3xl overflow-hidden">
-        <img src="images/background.jpg" alt="Finance analytics" class="w-full h-44 object-cover">
-        <div class="p-6">
-          <h3 class="text-xl font-bold">Fund Ops: Cash Flow Waterfalls & KPIs</h3>
-          <p class="text-slate-300 mt-2">Modeled capital calls/distributions and built audit‑ready roll‑forwards. Designed KPI views for IRR, DPI, RVPI with drill‑downs.</p>
-          <ul class="mt-3 text-sm space-y-1">
-            <li>• Reconciliations with SQL window functions</li>
-            <li>• Validation suite with Great Expectations</li>
-            <li>• Executive dashboard in Tableau</li>
-          </ul>
-          <div class="flex flex-wrap gap-2 mt-4">
-            <span class="tag px-3 py-1 rounded-full text-xs">SQL</span>
-            <span class="tag px-3 py-1 rounded-full text-xs">Great Expectations</span>
-            <span class="tag px-3 py-1 rounded-full text-xs">Tableau</span>
-          </div>
-          <div class="mt-4 flex gap-3 text-sm">
-            <a class="text-sky-300 hover:underline" href="#">SQL</a>
-            <a class="text-sky-300 hover:underline" href="#">Dashboard</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Case Study 5 (Healthcare device) -->
-      <article class="glass rounded-3xl overflow-hidden">
-        <img src="images/healthcare.jpg" alt="Neocare dialysis analytics" class="w-full h-44 object-cover">
-        <div class="p-6">
-          <h3 class="text-xl font-bold">Healthcare Device: Stability & Alarm Fatigue</h3>
-          <p class="text-slate-300 mt-2">Analyzed neonatal dialysis prototypes (UCSF collaboration) to reduce false alarms while protecting safety thresholds.</p>
-          <ul class="mt-3 text-sm space-y-1">
-            <li>• Improved precision valves → fewer spikes</li>
-            <li>• Quantified PPV/NPV of alarm rules</li>
-            <li>• Compliance‑ready documentation</li>
-          </ul>
-          <div class="flex flex-wrap gap-2 mt-4">
-            <span class="tag px-3 py-1 rounded-full text-xs">time‑series</span>
-            <span class="tag px-3 py-1 rounded-full text-xs">statistical QA</span>
-            <span class="tag px-3 py-1 rounded-full text-xs">regulatory</span>
-          </div>
-          <div class="mt-4 flex gap-3 text-sm">
-            <a class="text-sky-300 hover:underline" href="#">Protocol</a>
-            <a class="text-sky-300 hover:underline" href="#">Notebook</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Case Study 6 (Bike design → ops analytics) -->
-      <article class="glass rounded-3xl overflow-hidden">
-        <img src="images/bike.jpg" alt="Ops analytics for bike manufacturing" class="w-full h-44 object-cover">
-        <div class="p-6">
-          <h3 class="text-xl font-bold">Ops Analytics: BOM Variance & Throughput</h3>
-          <p class="text-slate-300 mt-2">Built a SQL model to track BOM cost variance and a dashboard for throughput & rework, enabling constraint‑focused sprints.</p>
-          <ul class="mt-3 text-sm space-y-1">
-            <li>• Cost variance early‑warning signals</li>
-            <li>• Control charts for QA</li>
-            <li>• Weekly ops review pack</li>
-          </ul>
-          <div class="flex flex-wrap gap-2 mt-4">
-            <span class="tag px-3 py-1 rounded-full text-xs">SQL</span>
-            <span class="tag px-3 py-1 rounded-full text-xs">Tableau</span>
-            <span class="tag px-3 py-1 rounded-full text-xs">manufacturing</span>
-          </div>
-          <div class="mt-4 flex gap-3 text-sm">
-            <a class="text-sky-300 hover:underline" href="#">SQL</a>
-            <a class="text-sky-300 hover:underline" href="#">Dashboard</a>
-          </div>
-        </div>
-      </article>
-    </div>
-  </section>
+<body class="font-sans text-slate-200">
 
   <!-- Skills & Tools -->
-  <section id="skills" class="max-w-7xl mx-auto px-6 py-16">
-    <div class="grid md:grid-cols-2 gap-10 items-start">
-      <div>
-        <h2 class="text-3xl md:text-4xl font-extrabold">Skills & Tools</h2>
-        <p class="text-slate-300 mt-2">I build trustworthy data: from ingestion to semantic layers to decision‑ready visuals.</p>
-        <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
-          <div class="chip rounded-xl px-3 py-2">Python (pandas, numpy, matplotlib)</div>
-          <div class="chip rounded-xl px-3 py-2">SQL (Postgres, BigQuery)</div>
-          <div class="chip rounded-xl px-3 py-2">Tableau & Looker</div>
-          <div class="chip rounded-xl px-3 py-2">dbt & Airflow</div>
-          <div class="chip rounded-xl px-3 py-2">Excel & Power Query</div>
-          <div class="chip rounded-xl px-3 py-2">Git & CI</div>
-          <div class="chip rounded-xl px-3 py-2">A/B testing</div>
-          <div class="chip rounded-xl px-3 py-2">Forecasting</div>
-          <div class="chip rounded-xl px-3 py-2">Time‑series</div>
-        </div>
-        <div class="mt-6">
-          <a href="_ME%20Sameer%20Khan%20Resume.docx.pdf" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-white text-sm font-semibold">Download Resume</a>
-          <button onclick="window.print()" class="ml-2 px-4 py-2 rounded-xl chip text-sm">Print this page</button>
-        </div>
+  <section id="skills" class="max-w-6xl mx-auto px-6 py-16">
+    <div>
+      <h2 class="text-3xl md:text-4xl font-extrabold">Skills & Tools</h2>
+      <p class="text-slate-300 mt-2">Blending engineering discipline with analytical rigor to deliver trustworthy, decision‑ready insights.</p>
+      <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
+        <div class="chip rounded-xl px-3 py-2">Python (pandas, numpy, matplotlib)</div>
+        <div class="chip rounded-xl px-3 py-2">SQL (Postgres, BigQuery)</div>
+        <div class="chip rounded-xl px-3 py-2">Tableau & Looker</div>
+        <div class="chip rounded-xl px-3 py-2">dbt & Airflow</div>
+        <div class="chip rounded-xl px-3 py-2">Excel & Power Query</div>
+        <div class="chip rounded-xl px-3 py-2">Git & CI/CD</div>
+        <div class="chip rounded-xl px-3 py-2">A/B Testing & Experiment Design</div>
+        <div class="chip rounded-xl px-3 py-2">Forecasting & Time‑Series</div>
+        <div class="chip rounded-xl px-3 py-2">Statistical Modeling</div>
       </div>
-
-      <!-- Radar/Bar chart -->
-      <div class="glass rounded-3xl p-6">
-        <h3 class="text-xl font-semibold mb-4">Capability Radar</h3>
-        <canvas id="skillsChart" height="240" aria-label="Skills chart" role="img"></canvas>
+      <div class="mt-6 flex gap-3">
+        <a href="_ME%20Sameer%20Khan%20Resume.docx.pdf" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-white text-sm font-semibold">Download Resume</a>
+        <button onclick="window.print()" class="px-4 py-2 rounded-xl chip text-sm">Print this page</button>
       </div>
     </div>
   </section>
 
-  <!-- Live Demo: upload CSV and chart it -->
-  <section id="demo" class="max-w-7xl mx-auto px-6 py-16">
-    <h2 class="text-3xl md:text-4xl font-extrabold">Live Demo — Tiny Data Explorer</h2>
-    <p class="text-slate-300 mt-2 max-w-2xl">Upload a CSV and I’ll plot the first two numeric columns instantly. This shows the kind of pragmatic tooling I build for PMs and engineers to self‑serve answers.</p>
-
-    <div class="mt-6 grid md:grid-cols-2 gap-8 items-start">
-      <div class="glass rounded-3xl p-6">
-        <label class="block text-sm mb-2" for="csv">Upload CSV</label>
-        <input id="csv" type="file" accept=".csv" class="block w-full text-sm file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:bg-sky-500 file:text-white hover:file:bg-sky-400" />
-        <p class="text-xs text-slate-400 mt-2">No upload leaves your browser. Parsing happens locally.</p>
-      </div>
-      <div class="glass rounded-3xl p-6">
-        <canvas id="demoChart" height="220"></canvas>
-        <p id="demoNote" class="text-xs text-slate-400 mt-2">Tip: columns named like <code>time,value</code> work great.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- About -->
-  <section id="about" class="max-w-7xl mx-auto px-6 py-16">
-    <div class="grid md:grid-cols-3 gap-10 items-start">
-      <div class="md:col-span-2">
-        <h2 class="text-3xl md:text-4xl font-extrabold">About</h2>
-        <p class="prose mt-3">Hi, I’m Sameer — a data analyst with roots in mechanical engineering (B.S., UC Berkeley). I’ve built experiments, prototypes, and analytics for devices and operations, then translated results into decisions leaders trust. I enjoy clean schemas, thoughtful visual design, and shipping useful tools fast.</p>
-        <div class="mt-4 text-sm text-slate-300">Based in San Francisco, CA • Open to Data Analyst / Analytics Engineer roles in 2025</div>
-      </div>
-      <aside class="glass rounded-3xl p-6">
-        <h3 class="text-xl font-semibold">What I value</h3>
-        <ul class="mt-3 text-slate-300 list-disc list-inside space-y-1">
-          <li>Clarity over cleverness</li>
-          <li>Small, verifiable wins</li>
-          <li>Reliable, documented pipelines</li>
-          <li>Empathy for end users</li>
-        </ul>
-      </aside>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="max-w-7xl mx-auto px-6 py-16">
-    <div class="glass rounded-3xl p-8">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-        <div>
-          <h2 class="text-3xl md:text-4xl font-extrabold">Let’s work together</h2>
-          <p class="text-slate-300 mt-2">Email me or use the form — I respond quickly.</p>
-          <p class="mt-2"><a class="text-sky-300 hover:underline" href="mailto:Sameeriqkhan@gmail.com">Sameeriqkhan@gmail.com</a></p>
-        </div>
-        <form action="https://formspree.io/f/mleyeewq" method="POST" class="w-full md:w-1/2 grid gap-3">
-          <input type="email" name="email" required placeholder="Your email" class="chip rounded-xl px-4 py-3" />
-          <textarea name="message" rows="4" required placeholder="Your message" class="chip rounded-xl px-4 py-3"></textarea>
-          <button type="submit" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-semibold">Send</button>
-        </form>
-      </div>
-    </div>
-    <p class="text-center text-sm text-slate-500 mt-8">© 2025 Sameer Khan. All rights reserved.</p>
-  </section>
-
-  <!-- Scripts -->
-  <script>
-    // Skills bar chart
-    const ctx = document.getElementById('skillsChart').getContext('2d');
-    new Chart(ctx, {
-      type: 'radar',
-      data: {
-        labels: ['SQL','Python','Experimentation','Dashboards','Pipelines','Statistics'],
-        datasets: [{
-          label: 'Proficiency',
-          data: [85, 88, 82, 84, 80, 78],
-          fill: true,
-          borderWidth: 2,
-        }]
-      },
-      options: {
-        plugins: { legend: { display: false } },
-        scales: { r: { angleLines: { display:false }, beginAtZero: true, suggestedMax: 100 } }
-      }
-    });
-
-    // Live CSV demo
-    const fileInput = document.getElementById('csv');
-    const demoCtx = document.getElementById('demoChart').getContext('2d');
-    let demoChart;
-
-    function firstTwoNumericColumns(data) {
-      if (!data || !data.length) return [];
-      const headers = Object.keys(data[0]);
-      const numericCols = headers.filter(h => data.every(row => !isNaN(parseFloat(row[h]))));
-      return numericCols.slice(0,2);
-    }
-
-    fileInput?.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      Papa.parse(file, {
-        header: true,
-        dynamicTyping: true,
-        complete: (results) => {
-          const rows = results.data.filter(r => Object.keys(r).length > 0);
-          const [xKey, yKey] = firstTwoNumericColumns(rows);
-          if (!xKey || !yKey) {
-            document.getElementById('demoNote').innerText = 'Could not find two numeric columns. Try a CSV with numeric values.';
-            return;
-          }
-          const x = rows.map(r => r[xKey]);
-          const y = rows.map(r => r[yKey]);
-
-          if (demoChart) demoChart.destroy();
-          demoChart = new Chart(demoCtx, {
-            type: 'line',
-            data: { labels: x, datasets: [{ label: `${yKey} vs ${xKey}`, data: y, borderWidth: 2, tension: .2, pointRadius: 0 }] },
-            options: { plugins: { legend: { display: true } }, scales: { x: { title: { display:true, text: xKey } }, y: { title: { display:true, text: yKey } } } }
-          });
-        }
-      })
-    });
-  </script>
 </body>
 </html>
 
