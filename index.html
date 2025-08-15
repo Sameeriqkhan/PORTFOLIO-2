@@ -3,15 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Portfolio of Sameer Khan – Data Analyst & Mechanical Engineer with expertise in Python, R, Power BI, and data visualization.">
-  <meta name="keywords" content="Sameer Khan, Data Analyst, Mechanical Engineer, UC Berkeley, Power BI, Python, R, SQL, Data Visualization, Portfolio, Financial Analysis">
+  <meta name="description" content="Portfolio of Sameer Khan — Data Analyst & Mechanical Engineer with expertise in Python, R, SQL, Power BI, and automation. UC Berkeley B.S. Mechanical Engineering & Google Data Analytics Certified.">
+  <meta name="keywords" content="Sameer Khan, Data Analyst, Mechanical Engineer, UC Berkeley, Google Data Analytics, Python, R, SQL, Power BI, Data Visualization, Portfolio">
   <title>Sameer Khan - Data Analyst & Mechanical Engineer</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     html { scroll-behavior: smooth; }
-    body, html { margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; color: white; background-color: #111; }
-    .hero { height: 100vh; background: url('images/background.jpg') center/cover no-repeat; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; padding: 0 20px; }
+    body, html {
+      margin: 0; padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      color: white; background-color: #111;
+    }
+    .hero {
+      height: 100vh;
+      background: url('images/background.jpg') center/cover no-repeat;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; text-align: center; padding: 0 20px;
+    }
     .hero h1 { font-size: 3.5rem; font-weight: bold; }
     .hero p { font-size: 1.3rem; margin-bottom: 20px; }
     .btn-group .btn { margin: 5px; }
@@ -20,137 +29,114 @@
     .card img { object-fit: cover; height: 200px; }
     footer { padding: 20px; text-align: center; border-top: 1px solid #444; margin-top: 60px; }
     a { color: #0dcaf0; }
-    h2 { margin-bottom: 20px; }
-    ul { padding-left: 20px; }
   </style>
 </head>
 <body>
 
-<!-- Hero Section -->
-<div class="hero">
-  <h1>Sameer Khan</h1>
-  <p>Data Analyst | Mechanical Engineer | San Francisco, CA</p>
-  <div class="btn-group">
-    <a href="https://www.linkedin.com/in/sameerikhan/" class="btn btn-outline-light"><i class="fab fa-linkedin"></i> LinkedIn</a>
-    <a href="https://github.com/YOUR_GITHUB" class="btn btn-outline-light"><i class="fab fa-github"></i> GitHub</a>
-    <a href="#projects" class="btn btn-outline-light"><i class="fas fa-project-diagram"></i> Projects</a>
-  </div>
-</div>
-
-<!-- About Section -->
-<section id="about">
-  <div class="container">
-    <h2>About Me</h2>
-    <p>I’m Sameer Khan, a data-driven problem solver with a <strong>B.S. in Mechanical Engineering from UC Berkeley</strong> and a <strong>Google Data Analytics Professional Certificate</strong>. My expertise bridges engineering precision with analytical insights, enabling me to transform raw datasets into actionable strategies. I’ve delivered projects in financial analysis, workflow automation, product design, and experimental research—always with a focus on measurable impact.</p>
-  </div>
-</section>
-
-<!-- Skills Section -->
-<section id="skills" style="background-color: #222;">
-  <div class="container">
-    <h2>Skills</h2>
-    <ul>
-      <li><strong>Programming & Analytics:</strong> Python (Pandas, NumPy, Matplotlib, Scikit-learn), R, SQL, MATLAB</li>
-      <li><strong>Data Visualization & BI Tools:</strong> Power BI, Tableau, Matplotlib, Seaborn</li>
-      <li><strong>Data Management:</strong> ETL processes, data cleaning, data modeling, statistical analysis</li>
-      <li><strong>Engineering & Design:</strong> SolidWorks, AutoCAD, Onshape, NX, GD&T, rapid prototyping</li>
-      <li><strong>Business & Communication:</strong> Financial modeling, stakeholder reporting, project management</li>
-    </ul>
-  </div>
-</section>
-
-<!-- Experience Section -->
-<section id="experience">
-  <div class="container">
-    <h2>Experience</h2>
-
-    <h4>Tilden Advisors – Analyst <span class="text-muted">(Apr 2024 – Present)</span></h4>
-    <ul>
-      <li>Extracted, cleaned, and validated datasets to support financial analysis and decision-making using Python, R, SQL, and Power BI.</li>
-      <li>Automated investor reporting pipelines in Python and Excel, reducing cycle time by <strong>40%</strong> and improving transparency.</li>
-      <li>Developed dashboards and visuals in Power BI for client presentations, translating complex datasets into actionable insights.</li>
-      <li>Led workflow automation initiatives, reducing manual effort and enhancing operational efficiency.</li>
-    </ul>
-
-    <h4>Undergraduate Research Apprentice Program (URAP), UC Berkeley – R&D Team <span class="text-muted">(Jan 2023 – Dec 2023)</span></h4>
-    <ul>
-      <li>Led development of a neonatal dialysis machine, coordinating cross-functional teams and ensuring design met FDA readiness standards.</li>
-      <li>Executed 80+ DOE trials, optimizing flow rates and valve actuation timing with <strong>&lt;5% variance</strong> in flow stability and <strong>&gt;98% sensor accuracy</strong>.</li>
-      <li>Built automated data capture pipelines for real-time monitoring of pressure, weight, and flow metrics.</li>
-    </ul>
-  </div>
-</section>
-
-<!-- Projects Section -->
-<section id="projects">
-  <div class="container">
-    <h2>Projects</h2>
-    <div class="row">
-
-      <div class="col-md-6 col-lg-4 mb-4">
-        <div class="card">
-          <img src="images/toroidal_cover.jpg" class="card-img-top" alt="Toroidal Propeller">
-          <div class="card-body">
-            <h5 class="card-title">Toroidal Propeller Research</h5>
-            <p class="card-text">Designed and executed a data-driven comparative study on propeller designs, applying blade element theory, MATLAB, and experimental testing to optimize efficiency.</p>
-            <a href="propeller.html" class="btn btn-outline-light btn-sm">View Project</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6 col-lg-4 mb-4">
-        <div class="card">
-          <img src="images/wat_dis.jpg" class="card-img-top" alt="Automatic Water Dispenser">
-          <div class="card-body">
-            <h5 class="card-title">Automatic Water Dispenser</h5>
-            <p class="card-text">Developed an IoT-enabled system using ESP32 and sensors to monitor soil moisture and automate plant watering, reducing human intervention.</p>
-            <a href="dispenser.html" class="btn btn-outline-light btn-sm">View Project</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6 col-lg-4 mb-4">
-        <div class="card">
-          <img src="images/arm_cad.png" class="card-img-top" alt="Automatic Writing Arm">
-          <div class="card-body">
-            <h5 class="card-title">Automatic Writing Arm</h5>
-            <p class="card-text">Designed a robotic arm using stepper motors and GUI input to replicate drawings with 95% precision, integrating mechanical and software systems.</p>
-            <a href="arm.html" class="btn btn-outline-light btn-sm">View Project</a>
-          </div>
-        </div>
-      </div>
-
+  <!-- HERO -->
+  <div class="hero">
+    <h1>Sameer Khan</h1>
+    <p>Data Analyst & Mechanical Engineer | San Francisco, CA</p>
+    <div class="btn-group">
+      <a href="https://www.linkedin.com/in/sameerikhan/" class="btn btn-outline-light"><i class="fab fa-linkedin"></i> LinkedIn</a>
+      <a href="https://github.com/yourgithub" class="btn btn-outline-light"><i class="fab fa-github"></i> GitHub</a>
+      <a href="#projects" class="btn btn-outline-light"><i class="fas fa-project-diagram"></i> Projects</a>
     </div>
   </div>
-</section>
 
-<!-- Contact Section -->
-<section id="contact" style="background-color: #222;">
-  <div class="container text-center">
-    <h2>Contact</h2>
-    <p>Email me at <a href="mailto:Sameeriqkhan@gmail.com">Sameeriqkhan@gmail.com</a></p>
-  </div>
-</section>
-
-<!-- Footer -->
-<footer>
-  <section id="contact-form" class="text-center py-5">
-    <div class="container" style="max-width: 600px;">
-      <h2 class="mb-4 text-white">Message Me</h2>
-      <form action="https://formspree.io/f/mleyeewq" method="POST">
-        <div class="mb-3">
-          <input type="email" name="email" class="form-control" placeholder="Your Email" required>
-        </div>
-        <div class="mb-3">
-          <textarea name="message" class="form-control" rows="5" placeholder="Your Message" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-outline-light">Send</button>
-      </form>
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <h2>About Me</h2>
+      <p>I’m Sameer, a data-driven problem solver with a <strong>B.S. in Mechanical Engineering from UC Berkeley</strong> and a <strong>Google Data Analytics Professional Certificate</strong>. I combine analytical skills, engineering expertise, and modern data tools to deliver insights and build solutions that drive impact. My experience spans data cleaning, visualization, automation, and reporting — all rooted in measurable results.</p>
     </div>
   </section>
-  <small>&copy; 2025 Sameer Khan. All Rights Reserved.</small>
-</footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- SKILLS -->
+  <section id="skills" style="background-color: #222;">
+    <div class="container">
+      <h2>Skills & Tools</h2>
+      <ul>
+        <li><strong>Programming & Data:</strong> Python (Pandas, NumPy, Matplotlib), R, SQL, MATLAB</li>
+        <li><strong>Visualization & BI:</strong> Power BI, Tableau, Excel (Advanced), Google Data Studio</li>
+        <li><strong>Data Workflows:</strong> ETL, Data Cleaning, Data Modeling, Automation</li>
+        <li><strong>Engineering & CAD:</strong> SolidWorks, Onshape, AutoCAD, NX</li>
+        <li><strong>Other:</strong> Statistical Analysis, Financial Modeling, Reporting Automation</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <h2>Experience</h2>
+      <h4>Tilden Advisors – Analyst <span class="text-muted">(Apr 2024 – Present)</span></h4>
+      <ul>
+        <li>Extract, clean, and validate datasets for financial analysis and reporting using Python, R, and SQL.</li>
+        <li>Automated investor reporting pipelines, cutting cycle time by 40% and improving transparency for stakeholders.</li>
+        <li>Developed interactive dashboards in Power BI to visualize key investment metrics.</li>
+      </ul>
+      <h4>UC Berkeley – R&D Team (Medical Devices) <span class="text-muted">(Jan 2023 – Dec 2023)</span></h4>
+      <ul>
+        <li>Led development of an infant dialysis system, achieving <5% variance in flow stability and >98% sensor accuracy.</li>
+        <li>Built automated data capture systems for benchtop validation, tracking pressure, weight, and flow metrics.</li>
+        <li>Collaborated with UCSF medical teams to align design with FDA readiness standards.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <h2>Projects</h2>
+      <div class="row">
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card">
+            <img src="images/toroidal_cover.jpg" class="card-img-top" alt="Toroidal Propeller">
+            <div class="card-body">
+              <h5 class="card-title">Toroidal Propeller Research</h5>
+              <p class="card-text">Data-driven study comparing toroidal vs. 3-blade propellers. Analyzed thrust, power efficiency, and noise using MATLAB and experimental testing.</p>
+              <a href="propeller.html" class="btn btn-outline-light btn-sm">View Project</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card">
+            <img src="images/wat_dis.jpg" class="card-img-top" alt="Automatic Water Dispenser">
+            <div class="card-body">
+              <h5 class="card-title">Automatic Water Dispenser</h5>
+              <p class="card-text">IoT-based plant watering system using ESP32 microcontrollers and sensor-driven automation for precision irrigation.</p>
+              <a href="dispenser.html" class="btn btn-outline-light btn-sm">View Project</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card">
+            <img src="images/arm_cad.png" class="card-img-top" alt="Automatic Writing Arm">
+            <div class="card-body">
+              <h5 class="card-title">Automatic Writing Arm</h5>
+              <p class="card-text">Robotic arm powered by stepper motors with 95% drawing accuracy from GUI inputs.</p>
+              <a href="arm.html" class="btn btn-outline-light btn-sm">View Project</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="background-color: #222;">
+    <div class="container text-center">
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:Sameeriqkhan@gmail.com">Sameeriqkhan@gmail.com</a></p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <small>&copy; 2025 Sameer Khan. All Rights Reserved.</small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
