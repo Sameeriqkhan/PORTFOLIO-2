@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <title>Toroidal Propeller · Sameer Khan</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Toroidal Propeller vs 3-blade: thrust, efficiency, and acoustic comparison on a sensorized test stand. Concise breakdown with images." />
+  <meta name="description" content="Toroidal vs 3-blade propeller: thrust, efficiency, and acoustic comparison on a sensorized test stand. Includes methods, calibration, and representative results." />
   <meta property="og:title" content="Toroidal Propeller · Sameer Khan" />
-  <meta property="og:description" content="Thrust, efficiency, and noise comparison on a compact rig; MATLAB analysis." />
+  <meta property="og:description" content="Bench comparison with load cell, INA219, tachometer, and SPL readings; MATLAB post-processing." />
   <meta property="og:type" content="article" />
   <meta property="og:image" content="images/toroidal_cover.jpg" />
 
@@ -37,6 +37,12 @@
     .chip { border:1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.04) }
     .img-zoom { transition: transform .25s ease }
     .img-zoom:hover { transform: scale(1.03) }
+    /* Optional: subtle “pop” preview on desktop */
+    @media (hover:hover) and (pointer:fine) {
+      .pop { transition: transform .2s ease, box-shadow .2s ease; position:relative; z-index:0; border-radius: 0.75rem; }
+      .pop:hover, .pop:focus-visible { transform: scale(1.05); z-index: 10; box-shadow: 0 12px 40px rgba(0,0,0,.45); }
+    }
+    table th, table td { border-bottom: 1px solid rgba(255,255,255,.08); }
   </style>
 </head>
 <body class="font-sans text-slate-200 antialiased">
@@ -66,14 +72,15 @@
       </nav>
       <h1 class="mt-3 text-3xl md:text-4xl font-extrabold">Toroidal Propeller vs. 3-Blade</h1>
       <p class="mt-2 max-w-3xl text-slate-300">
-        Bench comparison of a toroidal propeller against a standard 3-blade for thrust, efficiency, and acoustic output.
-        Data captured on a compact thrust stand and analyzed in <strong>MATLAB</strong>.
+        Bench comparison of toroidal and conventional 3-blade props for thrust, efficiency (thrust/W), and acoustics (dBA).
+        Sensorized stand with load cell, power/RPM sensing, and SPL readings; post-processed in <strong>MATLAB</strong>.
       </p>
       <div class="mt-4 flex flex-wrap gap-2 text-xs">
-        <span class="chip rounded-full px-3 py-1">CAD + Prototyping</span>
-        <span class="chip rounded-full px-3 py-1">Thrust Stand</span>
+        <span class="chip rounded-full px-3 py-1">Load Cell (1 kg) + HX711</span>
+        <span class="chip rounded-full px-3 py-1">INA219 (V/I/Power)</span>
+        <span class="chip rounded-full px-3 py-1">Laser Tachometer</span>
+        <span class="chip rounded-full px-3 py-1">SPL (dBA)</span>
         <span class="chip rounded-full px-3 py-1">MATLAB</span>
-        <span class="chip rounded-full px-3 py-1">Sound Meter</span>
       </div>
     </div>
   </header>
@@ -83,15 +90,18 @@
 
     <!-- Gallery -->
     <section>
-      <div class="grid sm:grid-cols-3 gap-4">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <figure class="cardish rounded-2xl overflow-hidden">
-          <img src="images/propellers.jpg" alt="Propeller comparison (toroidal vs 3-blade)" class="w-full h-56 object-cover img-zoom">
+          <img src="images/propellers.jpg" alt="Propeller comparison (toroidal vs 3-blade)" class="pop w-full h-56 object-cover">
         </figure>
         <figure class="cardish rounded-2xl overflow-hidden">
-          <img src="images/setup_tor.jpg" alt="Toroidal propeller test setup" class="w-full h-56 object-cover img-zoom">
+          <img src="images/setup_tor.jpg" alt="Toroidal propeller test setup" class="pop w-full h-56 object-cover">
         </figure>
         <figure class="cardish rounded-2xl overflow-hidden">
-          <img src="images/circuit_setup.jpg" alt="Load cell and sensor wiring" class="w-full h-56 object-cover img-zoom">
+          <img src="images/circuit_setup.jpg" alt="Load cell and instrumentation" class="pop w-full h-56 object-cover">
+        </figure>
+        <figure class="cardish rounded-2xl overflow-hidden">
+          <img src="images/toroidal_cover.jpg" alt="Toroidal propeller close-up" class="pop w-full h-56 object-cover">
         </figure>
       </div>
     </section>
@@ -100,27 +110,97 @@
     <section class="grid sm:grid-cols-3 gap-4">
       <div class="cardish rounded-2xl p-5">
         <h3 class="text-sm font-semibold text-slate-300">Problem</h3>
-        <p class="text-sm text-slate-300 mt-1">Evaluate whether a toroidal prop can reduce perceived noise while maintaining or improving efficiency.</p>
+        <p class="text-sm text-slate-300 mt-1">Can a toroidal prop reduce perceived noise while maintaining or improving efficiency vs a standard 3-blade?</p>
       </div>
       <div class="cardish rounded-2xl p-5">
         <h3 class="text-sm font-semibold text-slate-300">Approach</h3>
-        <p class="text-sm text-slate-300 mt-1">Sensorized thrust stand (load cell), RPM & input power logging, SPL readings; MATLAB post-processing.</p>
+        <p class="text-sm text-slate-300 mt-1">Sensorized thrust stand: thrust (load cell), V/I/Power (INA219), RPM (laser tach), SPL (dBA). MATLAB post-processing.</p>
       </div>
       <div class="cardish rounded-2xl p-5">
         <h3 class="text-sm font-semibold text-slate-300">Result</h3>
-        <p class="text-sm text-slate-300 mt-1">Noise ↓ ~3–4 dBA at comparable thrust; efficiency ↑ ~3–6% in mid-RPM range.</p>
+        <p class="text-sm text-slate-300 mt-1">Toroidal shows better efficiency and lower noise at <em>low RPM</em>, but trends reverse at higher RPM (efficiency falls, SPL rises).</p>
       </div>
     </section>
 
-    <!-- Build Notes -->
+    <!-- Methods (from lab) -->
     <section class="cardish rounded-2xl p-6">
-      <h2 class="text-xl font-bold">Build Notes</h2>
+      <h2 class="text-xl font-bold">Methods (Rig & Sensors)</h2>
       <ul class="mt-2 list-disc list-inside text-slate-300 text-sm space-y-1">
-        <li><strong>Rig:</strong> 1 kg load cell on a compact frame; ESC + power sensing; RPM via tach.</li>
-        <li><strong>Method:</strong> Step through RPM bands; log thrust, voltage, current, SPL; compute thrust/W.</li>
-        <li><strong>Analysis:</strong> MATLAB for smoothing, normalization at equal thrust, and efficiency curves.</li>
-        <li><strong>Outcome:</strong> Toroidal showed modest efficiency gains and lower acoustic levels at mid-thrust.</li>
+        <li><strong>Actuation:</strong> A2212 1000KV BLDC + 30A ESC, GPS-2303 bench PSU.</li>
+        <li><strong>Thrust:</strong> 1 kg strain-gauge load cell + HX711 ADC.</li>
+        <li><strong>Electrical:</strong> INA219 for voltage, current, and power.</li>
+        <li><strong>Speed:</strong> NEIKO 20713A laser tachometer with reflective tape.</li>
+        <li><strong>Acoustics:</strong> dBA via Decibel X app (iPhone SE), off-axis measurement.</li>
+        <li><strong>Procedure:</strong> Step RPM bands, log thrust/V/I/SPL, compute thrust/W; repeat for 3-blade and toroidal props.</li>
       </ul>
+    </section>
+
+    <!-- Calibration (from lab) -->
+    <section class="cardish rounded-2xl p-6">
+      <h2 class="text-xl font-bold">Load Cell Calibration</h2>
+      <p class="mt-2 text-slate-300 text-sm">
+        Linear fit between known masses and readings: <code>y = 0.98854·x − 0.019826 ± 1.0385 g</code> (95% interval). Calibration was done with 10–82 g references and validated over 10 trials. 
+      </p>
+      <p class="mt-2 text-slate-400 text-xs">Interpretation: scale is near 1:1 with small offset and ~±1.04 g prediction interval across the span.</p>
+    </section>
+
+    <!-- Representative results (tables pulled from report) -->
+    <section class="cardish rounded-2xl p-6">
+      <h2 class="text-xl font-bold">Representative Results</h2>
+
+      <div class="mt-4 overflow-x-auto">
+        <table class="min-w-[520px] w-full text-sm">
+          <thead class="bg-white/5">
+            <tr>
+              <th class="text-left p-2">3-Blade: RPM</th>
+              <th class="text-left p-2">Noise (dB)</th>
+              <th class="text-left p-2">Toroidal: RPM</th>
+              <th class="text-left p-2">Noise (dB)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="odd:bg-white/0 even:bg-white/[.03]">
+              <td class="p-2">1855</td>
+              <td class="p-2">66</td>
+              <td class="p-2">1115</td>
+              <td class="p-2">65.5</td>
+            </tr>
+            <tr class="odd:bg-white/0 even:bg-white/[.03]">
+              <td class="p-2">2636</td>
+              <td class="p-2">71.5</td>
+              <td class="p-2">1500</td>
+              <td class="p-2">68.3</td>
+            </tr>
+            <tr class="odd:bg-white/0 even:bg-white/[.03]">
+              <td class="p-2">3288</td>
+              <td class="p-2">72.5</td>
+              <td class="p-2">1805</td>
+              <td class="p-2">77.0</td>
+            </tr>
+            <tr class="odd:bg-white/0 even:bg-white/[.03]">
+              <td class="p-2">3779</td>
+              <td class="p-2">78.3</td>
+              <td class="p-2">2087</td>
+              <td class="p-2">74.7</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="mt-3 text-slate-300 text-sm">
+        Trend summary: toroidal is most competitive at lower RPM bands (higher thrust/W and lower dBA). As RPM climbs, the toroidal’s more aggressive ramp angle increases acoustic disruption and reduces efficiency; the standard 3-blade overtakes it at higher thrust/RPM. 
+      </p>
+      <p class="mt-2 text-slate-400 text-xs">
+        Notes: values reflect one test rig and specific prints; results vary with prop size, pitch, motor, and stand geometry.
+      </p>
+    </section>
+
+    <!-- Theory (short) -->
+    <section class="cardish rounded-2xl p-6">
+      <h2 class="text-xl font-bold">Theory (Brief)</h2>
+      <p class="mt-2 text-slate-300 text-sm">
+        Blade-element theory integrates sectional lift along the radius to estimate thrust; with our stationary setup (V≈0), angle of attack aligns with blade pitch. Toroidal geometry effectively eliminates a discrete wingtip, redistributing vortices and potentially lowering induced drag and perceived noise at low RPM. Model trends captured thrust ∝ n² but absolute magnitudes deviated from experiment due to chord/angle distribution and stationary test assumptions.
+      </p>
     </section>
 
     <!-- Actions -->
@@ -148,4 +228,5 @@
   </footer>
 </body>
 </html>
+
 
