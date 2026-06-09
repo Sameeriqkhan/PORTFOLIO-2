@@ -1,297 +1,554 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- ========== META / SEO (2025-ready) ========== -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sameer Khan · Mechanical Engineer</title>
-  <meta name="description" content="Sameer Khan — Mechanical Engineer in San Francisco. UC Berkeley B.S. Mechanical Engineering. CAD, prototyping, GD&T, design for manufacturing, test & validation, mechatronics." />
-  <meta name="keywords" content="Sameer Khan, Mechanical Engineer, UC Berkeley, CAD, SolidWorks, Onshape, AutoCAD, GD&T, DFM, DFA, Prototyping, Mechatronics, Control Systems, San Francisco" />
-  <link rel="canonical" href="https://sameerikhan.com/" />
-  <meta property="og:title" content="Sameer Khan · Mechanical Engineer" />
-  <meta property="og:description" content="Mechanical design, prototyping, and test. UC Berkeley B.S. Mechanical Engineering." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="images/og-cover.jpg" />
-  <meta name="twitter:card" content="summary_large_image" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sameer Khan — Engineering Projects</title>
+<meta name="description" content="A simple engineering project portfolio by Sameer Khan." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
 
-  <!-- ========== FONTS / TAILWIND ========== -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ["Inter", "system-ui", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif"] },
-          colors: {
-            base: { 900: "#0d1117", 800: "#161b22", 700: "#1e242d", 600: "#242b36" },
-            line: "#2f3541",
-            accent: { 500: "#e0a458", 600: "#cf913f" }
-          },
-          boxShadow: {
-            panel: "0 12px 40px rgba(0,0,0,.25)",
-            glow: "0 0 0 0 rgba(224,164,88,0), 0 0 80px 10px rgba(224,164,88,.12) inset"
-          }
-        }
-      }
+  :root {
+    --bg: #ffffff;
+    --text: #111111;
+    --muted: #5f5f5f;
+    --light: #888888;
+    --border: #dedede;
+    --soft-border: #eeeeee;
+    --surface: #f8f8f8;
+    --surface-2: #f3f3f3;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+  }
+
+  .wrap {
+    width: min(100% - 44px, 1080px);
+    margin: 0 auto;
+  }
+
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--soft-border);
+  }
+
+  .nav-inner {
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .nav-name {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    color: var(--muted);
+    transition: color 0.16s ease;
+  }
+
+  .nav-links a:hover {
+    color: var(--text);
+  }
+
+  .hero {
+    padding: 94px 0 82px;
+    border-bottom: 1px solid var(--soft-border);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr);
+    gap: 64px;
+    align-items: end;
+  }
+
+  .eyebrow {
+    margin: 0 0 18px;
+    font-size: 12px;
+    line-height: 1;
+    color: var(--light);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  .hero h1 {
+    margin: 0;
+    font-size: clamp(48px, 8vw, 88px);
+    line-height: 0.94;
+    letter-spacing: -0.075em;
+    font-weight: 700;
+  }
+
+  .role {
+    margin: 24px 0 0;
+    font-size: clamp(18px, 2vw, 22px);
+    color: var(--text);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+  }
+
+  .line {
+    margin: 10px 0 0;
+    color: var(--muted);
+  }
+
+  .summary-card {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 24px;
+  }
+
+  .summary-card p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .summary-card p + p {
+    margin-top: 14px;
+  }
+
+  section {
+    padding: 74px 0;
+    border-bottom: 1px solid var(--soft-border);
+  }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 40px;
+    align-items: start;
+    margin-bottom: 30px;
+  }
+
+  .section-kicker {
+    margin: 0;
+    font-size: 12px;
+    color: var(--light);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  .section-title {
+    margin: 0;
+    font-size: clamp(22px, 3vw, 32px);
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.055em;
+  }
+
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .project {
+    position: relative;
+    border: 1px solid var(--border);
+    background: #ffffff;
+    transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+  }
+
+  .project:hover {
+    transform: translateY(-2px);
+    border-color: #bdbdbd;
+    background: #fcfcfc;
+  }
+
+  .project-image {
+    aspect-ratio: 16 / 10;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .project-image img {
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(10%);
+    transition: filter 0.18s ease, transform 0.18s ease;
+  }
+
+  .project:hover .project-image img {
+    filter: grayscale(0%);
+    transform: scale(1.012);
+  }
+
+  .project-body {
+    padding: 24px;
+  }
+
+  .project-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+
+  .project h3 {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.28;
+    font-weight: 600;
+    letter-spacing: -0.035em;
+  }
+
+  .project-number {
+    color: var(--light);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.08em;
+  }
+
+  .project p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .project-meta {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--soft-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .project-type {
+    color: var(--light);
+    font-size: 12px;
+  }
+
+  .project-link {
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .project-link::after {
+    content: " →";
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .about-copy {
+    max-width: 640px;
+  }
+
+  .about-copy p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .about-copy p + p {
+    margin-top: 16px;
+  }
+
+  .contact {
+    border-bottom: 0;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .contact-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 42px;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    background: #ffffff;
+    font-size: 14px;
+    color: var(--text);
+    transition: background 0.16s ease, border-color 0.16s ease;
+  }
+
+  .contact-links a:hover {
+    background: var(--surface);
+    border-color: #c8c8c8;
+  }
+
+  footer {
+    border-top: 1px solid var(--soft-border);
+    padding: 24px 0;
+    color: var(--light);
+    font-size: 12px;
+  }
+
+  @media (max-width: 820px) {
+    .wrap {
+      width: min(100% - 34px, 1080px);
     }
-  </script>
-  <style>
-    :root { --bg:#0d1117; --panel:#161b22; --line:#2f3541 }
-    html { scroll-behavior: smooth }
-    body { background: var(--bg) }
-    .chip { border:1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.04) }
-    .cardish { background: var(--panel); border:1px solid var(--line) }
-    .visually-hidden { position:absolute !important; height:1px;width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; border:0; padding:0; margin:-1px; }
-  </style>
+
+    .hero {
+      padding: 70px 0 58px;
+    }
+
+    .hero-grid,
+    .section-head,
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 26px;
+    }
+
+    section {
+      padding: 58px 0;
+    }
+
+    .projects {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .nav-inner {
+      padding: 18px 0;
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .nav-links {
+      gap: 18px;
+    }
+
+    .summary-card,
+    .project-body {
+      padding: 20px;
+    }
+  }
+</style>
 </head>
-
-<body class="font-sans text-slate-200 antialiased">
-  <!-- NAV -->
-  <nav class="sticky top-0 z-30 backdrop-blur bg-base-900/75 border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-      <a class="font-bold" href="#">Sameer Khan</a>
-      <div class="hidden md:flex items-center gap-5 text-slate-300">
-        <a href="#about" class="hover:text-white">About</a>
-        <a href="#skills" class="hover:text-white">Skills</a>
-        <a href="#projects" class="hover:text-white">Projects</a>
-        <a href="#contact" class="hover:text-white">Contact</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- HERO / NAMEPLATE -->
-  <header id="about" class="border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-6 py-10 text-center">
-      <h1 class="text-3xl md:text-5xl font-extrabold leading-tight title-shine">Sameer Khan</h1>
-      <p class="text-slate-300 mt-3 max-w-2xl mx-auto">Mechanical Engineer passionate about designing, prototyping, and testing systems. </p>
-      <div class="mt-4 flex flex-wrap gap-2 justify-center text-sm">
-        <span class="chip rounded-full px-3 py-1 font-bold">B.S. Mechanical Engineering — UC Berkeley</span>
-        <span class="chip rounded-full px-3 py-1">San Francisco, CA</span>
-      </div>
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a href="#top" class="nav-name">Sameer Khan</a>
+      <ul class="nav-links">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </div>
   </header>
-  <style>
-    .title-shine{position:relative;display:inline-block}
-    .title-shine:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 0%,rgba(255,255,255,.06) 40%,transparent 60%);transform:translateX(-120%);}
-    .title-shine{overflow:hidden}
-    .title-shine:hover:after{animation:shine 1.2s ease}
-    @keyframes shine{to{transform:translateX(120%)}}
-  </style>
 
-  <!-- MAIN CONTENT GRID -->
-  <main class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
-    <!-- LEFT SIDEBAR -->
-    <aside id="skills" class="lg:col-span-4 space-y-6">
-      <section class="cardish rounded-2xl p-6">
-        <h2 class="text-xl font-bold">Education</h2>
-        <div class="mt-3 space-y-2 text-sm">
-          <div>
-            <h3 class="font-semibold">B.S., Mechanical Engineering</h3>
-            <p class="text-slate-300">University of California, Berkeley</p>
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">Engineering Portfolio</p>
+          <h1>Sameer Khan</h1>
+          <p class="role">Mechanical Engineer</p>
+          <p class="line">Design • Test • Prototype</p>
+        </div>
+        <div class="summary-card">
+          <p>Selected engineering projects and research across mechanical design, prototyping, testing, and hardware systems.</p>
+          <p>A focused archive of work built through CAD, fabrication, instrumentation, and validation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="section-kicker">Projects</p>
+          <h2 class="section-title">Selected work</h2>
+        </div>
+
+        <div class="projects">
+          <article class="project">
+            <div class="project-image">
+              <img src="images/toroidal_cover.jpg" alt="Toroidal propeller on thrust test stand" loading="lazy" />
+            </div>
+            <div class="project-body">
+              <div class="project-top">
+                <h3>Toroidal Propeller Study</h3>
+                <span class="project-number">01</span>
+              </div>
+              <p>Designed and tested toroidal propeller geometries using 3D printing and a custom instrumented thrust stand.</p>
+              <div class="project-meta">
+                <span class="project-type">Testing / CAD / Instrumentation</span>
+                <a href="propeller.html" class="project-link">View Project</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project-image">
+              <img src="images/arm_cad.png" alt="Automatic writing arm CAD model" loading="lazy" />
+            </div>
+            <div class="project-body">
+              <div class="project-top">
+                <h3>Automatic Writing Arm</h3>
+                <span class="project-number">02</span>
+              </div>
+              <p>Built a motion-controlled writing mechanism with CAD design, kinematic analysis, and Arduino-based control.</p>
+              <div class="project-meta">
+                <span class="project-type">Mechanism Design / Controls</span>
+                <a href="arm.html" class="project-link">View Project</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project-image">
+              <img src="images/wat_dis.jpg" alt="Automatic water dispenser prototype" loading="lazy" />
+            </div>
+            <div class="project-body">
+              <div class="project-top">
+                <h3>IoT Water Dispenser</h3>
+                <span class="project-number">03</span>
+              </div>
+              <p>Created an ESP32-based watering system with soil moisture sensing, a custom enclosure, and automated control.</p>
+              <div class="project-meta">
+                <span class="project-type">Mechatronics / Enclosure Design</span>
+                <a href="dispenser.html" class="project-link">View Project</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project-image">
+              <img src="images/water_bottle.png" alt="Ergonomic water bottle holder" loading="lazy" />
+            </div>
+            <div class="project-body">
+              <div class="project-top">
+                <h3>Ergonomic Bottle Holder</h3>
+                <span class="project-number">04</span>
+              </div>
+              <p>Designed and prototyped a lightweight everyday carry holder through iterative CAD, 3D printing, and fit testing.</p>
+              <div class="project-meta">
+                <span class="project-type">Product Design / Prototyping</span>
+                <a href="bottle.html" class="project-link">View Project</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project-image">
+              <img src="images/bike.jpg" alt="Bike frame design" loading="lazy" />
+            </div>
+            <div class="project-body">
+              <div class="project-top">
+                <h3>Bike Frame Design</h3>
+                <span class="project-number">05</span>
+              </div>
+              <p>Modeled a bike frame concept with a focus on geometry, structure, and manufacturable mechanical design.</p>
+              <div class="project-meta">
+                <span class="project-type">CAD / Structural Design</span>
+                <a href="bike.html" class="project-link">View Project</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project-image" aria-label="Neonatal dialysis system project image placeholder"></div>
+            <div class="project-body">
+              <div class="project-top">
+                <h3>Neonatal Dialysis System</h3>
+                <span class="project-number">06</span>
+              </div>
+              <p>Contributed to the development and validation of a neonatal peritoneal dialysis system with sensors, valves, and benchtop testing.</p>
+              <div class="project-meta">
+                <span class="project-type">Medical Device / Validation</span>
+                <a href="#contact" class="project-link">Details Coming Soon</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap about-grid">
+        <p class="section-kicker">About</p>
+        <div class="about-copy">
+          <h2 class="section-title">Mechanical design, prototyping, and test-focused engineering.</h2>
+          <p>I'm a mechanical engineer interested in product development, prototyping, testing, and hardware systems.</p>
+          <p>My work spans medical devices, experimental testing, CAD design, and mechatronics.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="wrap about-grid">
+        <p class="section-kicker">Contact</p>
+        <div>
+          <h2 class="section-title" style="margin-bottom:22px">Connect</h2>
+          <div class="contact-links">
+            <a href="mailto:Sameeriqkhan@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/sameerikhan/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://github.com/sameerikhan" target="_blank" rel="noopener">GitHub</a>
           </div>
         </div>
-      </section>
-
-      <section class="cardish rounded-2xl p-6">
-        <h2 class="text-xl font-bold">Skills</h2>
-        <div class="mt-3 grid gap-4 text-sm">
-          <div>
-            <h3 class="font-semibold">Mechanical Design</h3>
-            <p class="text-slate-300">SolidWorks · Onshape · AutoCAD · NX · GD&T · Tolerance stacks · DFM/DFA · Sheet metal · Mechanism design · Rapid prototyping (FDM/SLA)</p>
-          </div>
-          <div>
-            <h3 class="font-semibold">Engineering Analysis</h3>
-            <p class="text-slate-300">MATLAB · Mechanism analysis · Engineering Python (NumPy/Matplotlib) · First-principles hand calcs</p>
-          </div>
-          <div>
-            <h3 class="font-semibold">Test & Validation</h3>
-            <p class="text-slate-300">Test plans · DOE · Instrumentation (load cells, flow/pressure, encoders) · Data logging · Calibration · Failure analysis</p>
-          </div>
-          <div>
-            <h3 class="font-semibold">Mechatronics</h3>
-            <p class="text-slate-300">Arduino/ESP32 · Sensors/actuators · Basic controls · Firmware bring-up · Soldering & wiring</p>
-          </div>
-          <div>
-            <h3 class="font-semibold">Documentation</h3>
-            <p class="text-slate-300">Engineering drawings · BOMs · Test reports · Design reviews · Risk & safety considerations</p>
-          </div>
-        </div>
-        <div class="mt-4 flex flex-wrap gap-2 text-xs">
-          <span class="chip rounded-full px-3 py-1">CAD</span>
-          <span class="chip rounded-full px-3 py-1">GD&T</span>
-          <span class="chip rounded-full px-3 py-1">DFM/DFA</span>
-          <span class="chip rounded-full px-3 py-1">Prototyping</span>
-          <span class="chip rounded-full px-3 py-1">Test & Validation</span>
-          <span class="chip rounded-full px-3 py-1">MATLAB</span>
-          <span class="chip rounded-full px-3 py-1">Arduino</span>
-        </div>
-      </section>
-    </aside>
-
-    <!-- RIGHT CONTENT -->
-    <section class="lg:col-span-8 space-y-10">
-      <section id="experience" class="cardish rounded-2xl p-6">
-        <h2 class="text-2xl font-extrabold mb-2">Experience</h2>
-        <article class="mb-6">
-          <header class="flex items-baseline justify-between gap-4 flex-wrap">
-            <h3 class="text-lg font-semibold">Project Engineer · Sausal Corp</h3>
-            <span class="text-slate-400 text-sm">Apr 2024 – Present</span>
-          </header>
-          <ul class="mt-3 space-y-2 text-slate-300 text-sm">
-            <li>DSupported project execution by coordinating with field teams, subcontractors, and engineers to track progress, resolve site issues, and maintain project schedules.</li>
-<li>Assisted with RFIs, submittals, and documentation control to ensure accurate communication between design intent and field implementation.</li>
-<li>Helped monitor job site activities and project data to identify delays, support issue resolution, and improve workflow efficiency across construction phases.</li>
-          </ul>
-        </article>
-        <article>
-          <header class="flex items-baseline justify-between gap-4 flex-wrap">
-            <h3 class="text-lg font-semibold">R&D Team (Medical Devices) · URAP, UC Berkeley</h3>
-            <span class="text-slate-400 text-sm">Jan 2023 – Dec 2023</span>
-          </header>
-          <ul class="mt-3 space-y-2 text-slate-300 text-sm">
-            <li>Co-developed neonatal peritoneal dialysis system; coordinated electrical & mechanical subteams on mechanisms, sensors, and safety.</li>
-            <li>Executed <strong>80+ DOE</strong> trials optimizing flow rates, tubing, and valve timing — achieved <strong>&lt;5% variance</strong> in flow stability and <strong>&gt;98% sensor accuracy</strong>.</li>
-            <li>Led benchtop test setup with pressure/weight/flow instrumentation; created test plans, calibration, and validation reports.</li>
-          </ul>
-        </article>
-      </section>
-
-      <section id="projects">
-  <h2 class="text-2xl font-extrabold mb-4">Projects</h2>
-  <div class="grid md:grid-cols-2 gap-6">
-    <article class="cardish rounded-2xl overflow-hidden shadow-sm">
-      <img src="images/toroidal_cover.jpg" alt="Toroidal propeller experiment" class="w-full h-44 object-cover border-b border-white/10" />
-      <div class="p-5">
-        <h3 class="text-lg font-semibold">Toroidal Propeller</h3>
-        <p class="text-slate-300 text-sm mt-1"><strong>Problem:</strong> Reduce acoustic noise and improve thrust efficiency.</p>
-        <p class="text-slate-300 text-sm"><strong>Approach:</strong> CAD, prototyping, sensorized thrust stand; MATLAB analysis.</p>
-        <p class="text-slate-300 text-sm"><strong>Result:</strong> 3–4 dBA noise reduction, 3–6% efficiency gain at mid-RPM.</p>
-        <a href="propeller.html" class="mt-4 inline-block chip px-3 py-1.5 rounded-lg">Open case study</a>
       </div>
-    </article>
-
-    <article class="cardish rounded-2xl overflow-hidden shadow-sm">
-      <img src="images/wat_dis.jpg" alt="Automatic water dispenser" class="w-full h-44 object-cover border-b border-white/10" />
-      <div class="p-5">
-        <h3 class="text-lg font-semibold">Automatic Water Dispenser (IoT)</h3>
-        <p class="text-slate-300 text-sm mt-1"><strong>Problem:</strong> Manual irrigation caused inconsistent plant health.</p>
-        <p class="text-slate-300 text-sm"><strong>Approach:</strong> ESP32, soil sensors, control thresholds, enclosure design.</p>
-        <p class="text-slate-300 text-sm"><strong>Result:</strong> Reliable moisture levels, healthier plants, serviceable design.</p>
-        <a href="dispenser.html" class="mt-4 inline-block chip px-3 py-1.5 rounded-lg">Open case study</a>
-      </div>
-    </article>
-
-    <article class="cardish rounded-2xl overflow-hidden shadow-sm">
-      <img src="images/arm_cad.png" alt="Automatic writing arm" class="w-full h-44 object-cover border-b border-white/10" />
-      <div class="p-5">
-        <h3 class="text-lg font-semibold">Automatic Writing Arm</h3>
-        <p class="text-slate-300 text-sm mt-1"><strong>Problem:</strong> Increase fidelity of GUI-generated paths.</p>
-        <p class="text-slate-300 text-sm"><strong>Approach:</strong> Kinematics, backlash reduction, calibration, filtering.</p>
-        <p class="text-slate-300 text-sm"><strong>Result:</strong> 95% path accuracy, smoother motion traces.</p>
-        <a href="arm.html" class="mt-4 inline-block chip px-3 py-1.5 rounded-lg">Open case study</a>
-      </div>
-    </article>
-
-    <article class="cardish rounded-2xl overflow-hidden shadow-sm">
-      <img src="images/water_bottle.png" alt="Water bottle holder" class="w-full h-44 object-cover border-b border-white/10" />
-      <div class="p-5">
-        <h3 class="text-lg font-semibold">Water Bottle Holder</h3>
-        <p class="text-slate-300 text-sm mt-1"><strong>Problem:</strong> Lack of secure, ergonomic everyday carry.</p>
-        <p class="text-slate-300 text-sm"><strong>Approach:</strong> Iterative CAD → print → test, ergonomic studies.</p>
-        <p class="text-slate-300 text-sm"><strong>Result:</strong> Lightweight design with compartments for phone, card, AirTag.</p>
-        <a href="botlle.html" class="mt-4 inline-block chip px-3 py-1.5 rounded-lg">Open case study</a>
-      </div>
-    </article>
-
-    <article class="cardish rounded-2xl overflow-hidden shadow-sm md:col-span-2">
-      <img src="images/bike.jpg" alt="Bike design" class="w-full h-60 object-cover border-b border-white/10" />
-      <div class="p-5">
-        <h3 class="text-lg font-semibold">Bike Design</h3>
-        <p class="text-slate-300 text-sm mt-1"><strong>Problem:</strong> Optimize frame strength-to-weight.</p>
-        <p class="text-slate-300 text-sm"><strong>Approach:</strong> Parts modeled in Creo; animated design video using 3ds Max.</p>
-        <p class="text-slate-300 text-sm"><strong>Result:</strong> Balanced performance and cost; documented design trade-offs and presentation visuals.</p>
-        <a href="bike.html" class="mt-4 inline-block chip px-3 py-1.5 rounded-lg">Open case study</a>
-      </div>
-    </article>
-  </div>
-</section>
-
     </section>
   </main>
 
-  <!-- CONTACT -->
-<section id="contact" class="max-w-7xl mx-auto px-6 pb-12">
-  <div class="grid md:grid-cols-2 gap-8 items-start">
-    <div class="cardish rounded-2xl p-6">
-      <h2 class="text-2xl font-extrabold">Contact</h2>
-      <p class="text-slate-300 mt-2 text-sm">Email or connect — I respond quickly.</p>
-      <div class="mt-4 flex flex-wrap gap-2">
-        <a href="mailto:Sameeriqkhan@gmail.com" class="chip px-3 py-1.5 rounded-xl">Email</a>
-        <a href="https://www.linkedin.com/in/sameerikhan/" class="chip px-3 py-1.5 rounded-xl">LinkedIn</a>
-        <a href="https://github.com/sameerikhan" class="chip px-3 py-1.5 rounded-xl">GitHub</a>
-        <a href="_ME%20Sameer%20Khan%20Resume.docx.pdf" class="chip px-3 py-1.5 rounded-xl">Resume</a>
-      </div>
-    </div>
-
-    <form action="https://formspree.io/f/mleyeewq" method="POST" class="cardish rounded-2xl p-6 grid gap-3">
-      <!-- spam honeypot -->
-      <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" />
-
-      <div class="grid md:grid-cols-2 gap-3">
-        <div>
-          <label for="name" class="text-sm">Your name</label>
-          <input id="name" type="text" name="name" required class="chip rounded-xl px-4 py-3 w-full" />
-        </div>
-        <div>
-          <label for="email" class="text-sm">Your email</label>
-          <input id="email" type="email" name="email" required class="chip rounded-xl px-4 py-3 w-full" />
-        </div>
-      </div>
-
-      <div>
-        <label for="subject" class="text-sm">Subject</label>
-        <input id="subject" type="text" name="subject" class="chip rounded-xl px-4 py-3 w-full" />
-      </div>
-
-      <div>
-        <label for="message" class="text-sm">Your message</label>
-        <textarea id="message" name="message" rows="6" required class="chip rounded-xl px-4 py-3 w-full"></textarea>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-3">
-        <div>
-          <label for="company" class="text-sm">Company (optional)</label>
-          <input id="company" type="text" name="company" class="chip rounded-xl px-4 py-3 w-full" />
-        </div>
-        <div>
-          <label for="phone" class="text-sm">Phone (optional)</label>
-          <input id="phone" type="text" name="phone" class="chip rounded-xl px-4 py-3 w-full" />
-        </div>
-      </div>
-
-      <div class="flex items-center gap-3">
-        <button type="submit" class="px-4 py-2 rounded-xl bg-accent-500 hover:bg-accent-600 text-slate-900 font-semibold">Send</button>
-        <label class="text-xs text-slate-400 inline-flex items-center gap-2">
-          <input type="checkbox" name="copy" value="yes" class="rounded" />
-          Send me a copy
-        </label>
-      </div>
-
-      <p class="text-[11px] text-slate-500">This form uses Formspree. By submitting, you consent to being contacted back at the email provided.</p>
-    </form>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="text-center text-sm text-slate-500 py-8 border-t border-white/10">
-  © 2025 Sameer Khan. All rights reserved.
-</footer>
+  <footer>
+    <div class="wrap">© 2026 Sameer Khan</div>
+  </footer>
 </body>
 </html>
-
-
-
-
 
