@@ -3,6 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    img-src 'self' data:;
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    font-src https://fonts.gstatic.com;
+    script-src 'self';
+    connect-src 'none';
+    frame-ancestors 'none';
+    base-uri 'self';
+    form-action 'none';
+  " />
   <title>Sameer Khan · Mechanical Engineer</title>
   <meta name="description" content="Sameer Khan — Mechanical Engineer. Selected engineering projects in mechanical design, prototyping, testing, CAD, and mechatronics." />
   <meta name="keywords" content="Sameer Khan, Mechanical Engineer, UC Berkeley, CAD, SolidWorks, Onshape, Prototyping, Mechatronics, Test and Validation" />
@@ -420,17 +431,17 @@
       <section class="panel">
         <h2 class="section-title">Tools & Methods</h2>
         <div class="small-title">Mechanical Design</div>
-        <p>SolidWorks · Onshape · AutoCAD · Creo · GD&T · DFM/DFA</p>
+        <p>SolidWorks · Onshape · AutoCAD · NX · Creo · GD&T · DFM/DFA</p>
 
-        <div class="small-title">Hardware & Mechatronics</div>
-        <p> Sensors · actuators · load cells · ESP32 · soldering · controls</p>
+        <div class="small-title">Prototyping</div>
+        <p>FDM/SLA printing · shop fabrication · iterative build-test cycles</p>
 
-        <div class="small-title">Programming and Analysis</div>
-        <p>Python · C++ · Arduino · Matlab · ESP32</p>
+        <div class="small-title">Testing</div>
+        <p>DOE · instrumentation · calibration · data logging · failure analysis</p>
 
-        <div class="small-title">Documentation</div>
-        <p> Engineering drawings · BOM · design review · As-built drawings · Bluebeam · Procore</p>
-        
+        <div class="small-title">Mechatronics</div>
+        <p>Arduino · ESP32 · sensors · actuators · basic firmware bring-up</p>
+
         <div class="chips">
           <span class="chip">CAD</span>
           <span class="chip">Prototype</span>
