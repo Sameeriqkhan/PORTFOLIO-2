@@ -1,129 +1,525 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Automatic Writing Arm · Sameer Khan</title>
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Automatic writing/drawing arm by Sameer Khan — compact breakdown with images, Problem → Approach → Result, and key build notes." />
+  <title>Automatic Writing Arm · Sameer Khan</title>
+  <meta name="description" content="Straightforward engineering project page for Sameer Khan's automatic writing arm project." />
   <meta property="og:title" content="Automatic Writing Arm · Sameer Khan" />
-  <meta property="og:description" content="Images + concise breakdown of a pen‑plotting gantry robot." />
+  <meta property="og:description" content="Pen-plotting gantry project with 3D-printed parts, calibration, and controlled drawing motion." />
   <meta property="og:type" content="article" />
   <meta property="og:image" content="images/arm_cad.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ["Inter","system-ui","Segoe UI","Roboto","Helvetica","Arial","sans-serif"] },
-          colors: { base:{900:'#0d1117',800:'#161b22',700:'#1e242d',600:'#242b36'}, line:'#2f3541', accent:{500:'#e0a458',600:'#cf913f'} },
-          boxShadow: { panel:'0 12px 40px rgba(0,0,0,.25)'}
-        }
-      }
-    }
-  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
   <style>
-    :root { --bg:#0d1117; --panel:#161b22; --line:#2f3541 }
-    body { background: var(--bg) }
-    .cardish { background: var(--panel); border:1px solid var(--line) }
-    .chip { border:1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.04) }
-    .img-zoom { transition: transform .25s ease }
-    .img-zoom:hover { transform: scale(1.03) }
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d1117;
+      --panel: #151a22;
+      --panel-soft: #11161d;
+      --line: #2a303a;
+      --line-soft: rgba(255,255,255,.08);
+      --text: #f2f4f8;
+      --muted: #a9b0bd;
+      --subtle: #707987;
+      --accent: #e0a458;
+      --accent-soft: rgba(224,164,88,.12);
+      --radius: 18px;
+      --max: 1180px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background:
+        radial-gradient(circle at top right, rgba(224,164,88,.08), transparent 34rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    strong { color: var(--text); font-weight: 700; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(13,17,23,.78);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .nav-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .nav-name {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      list-style: none;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .nav-links a { transition: color .16s ease; }
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .hero-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 34px 24px 44px;
+    }
+
+    .breadcrumb {
+      color: var(--subtle);
+      font-size: 13px;
+      margin-bottom: 26px;
+    }
+
+    .breadcrumb a { color: var(--muted); }
+    .breadcrumb a:hover { color: var(--text); }
+    .breadcrumb span { margin: 0 8px; }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      max-width: 880px;
+      font-size: clamp(2.35rem, 6vw, 4.55rem);
+      line-height: .96;
+      letter-spacing: -.06em;
+      font-weight: 800;
+    }
+
+    .hero-copy {
+      margin-top: 18px;
+      max-width: 720px;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.12rem);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .chip {
+      border: 1px solid var(--line-soft);
+      background: rgba(255,255,255,.035);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 34px 24px 60px;
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 74px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .panel,
+    .image-card {
+      background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.015)), var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .panel { padding: 22px; }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      margin-bottom: 12px;
+    }
+
+    .small-title {
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 700;
+      margin-top: 16px;
+      margin-bottom: 4px;
+    }
+
+    .small-title:first-of-type { margin-top: 0; }
+
+    .sidebar p,
+    .panel p,
+    .panel li {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .main {
+      display: grid;
+      gap: 18px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 18px;
+    }
+
+    .image-card {
+      overflow: hidden;
+      background: var(--panel-soft);
+    }
+
+    .zoom-frame {
+      overflow: hidden;
+      background: var(--panel-soft);
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .image-card.large .zoom-frame { height: 420px; }
+    .image-card.small .zoom-frame { height: 201px; }
+
+    .zoom-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .38s ease, filter .38s ease;
+      transform-origin: center center;
+      will-change: transform;
+    }
+
+    .image-card:hover .zoom-frame img,
+    .image-card:focus-within .zoom-frame img {
+      transform: scale(1.14);
+      filter: contrast(1.04);
+    }
+
+    .image-card:hover,
+    .image-card:focus-within { cursor: zoom-in; }
+
+    .screen-preview {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-items: center;
+      padding: 40px;
+      background: rgba(5, 8, 13, .72);
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .18s ease, visibility .18s ease;
+    }
+
+    .screen-preview img {
+      max-width: min(92vw, 1040px);
+      max-height: 84vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      box-shadow: 0 24px 80px rgba(0,0,0,.58);
+      transform: scale(.96);
+      transition: transform .2s ease;
+    }
+
+    .image-card:hover .screen-preview,
+    .image-card:focus-within .screen-preview {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .image-card:hover .screen-preview img,
+    .image-card:focus-within .screen-preview img {
+      transform: scale(1);
+    }
+
+    @media (max-width: 700px) {
+      .screen-preview { display: none; }
+    }
+
+    .gallery-side {
+      display: grid;
+      gap: 18px;
+    }
+
+    .caption {
+      color: var(--subtle);
+      font-size: 12px;
+      padding: 11px 13px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    ul.clean-list {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    ul.clean-list li {
+      position: relative;
+      padding-left: 16px;
+    }
+
+    ul.clean-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .72em;
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: var(--accent);
+      opacity: .8;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+      border: 1px solid var(--line-soft);
+      background: rgba(255,255,255,.035);
+      border-radius: 10px;
+      padding: 8px 11px;
+      transition: border-color .16s ease, background .16s ease;
+    }
+
+    .project-link:hover {
+      border-color: rgba(224,164,88,.45);
+      background: var(--accent-soft);
+    }
+
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .accent-link {
+      background: var(--accent);
+      color: #121212;
+      border-color: transparent;
+    }
+
+    .accent-link:hover {
+      background: #cf913f;
+      border-color: transparent;
+    }
+
+    footer {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 28px 24px 38px;
+      border-top: 1px solid var(--line-soft);
+      color: var(--subtle);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    @media (max-width: 980px) {
+      .wrap { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .gallery { grid-template-columns: 1fr; }
+      .image-card.large { min-height: 340px; }
+    }
+
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .hero-inner { padding-top: 28px; }
+      .wrap { padding-top: 24px; }
+      .two-col { grid-template-columns: 1fr; }
+      footer { flex-direction: column; }
+    }
   </style>
 </head>
-<body class="font-sans text-slate-200 antialiased">
-
-  <!-- NAV -->
-  <nav class="sticky top-0 z-30 backdrop-blur bg-base-900/75 border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-      <a class="font-bold" href="index.html">Sameer Khan</a>
-      <div class="hidden md:flex items-center gap-5 text-slate-300">
-        <a href="index.html#about" class="hover:text-white">About</a>
-        <a href="index.html#skills" class="hover:text-white">Skills</a>
-        <a href="index.html#projects" class="hover:text-white">Projects</a>
-        <a href="index.html#contact" class="hover:text-white">Contact</a>
-      </div>
+<body>
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a class="nav-name" href="index.html">Sameer Khan</a>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
     </div>
   </nav>
 
-  <!-- HEADER (simple) -->
-  <header class="border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-6 py-8">
-      <nav class="text-sm text-slate-400">
-        <a href="index.html" class="hover:text-white">Home</a>
-        <span class="mx-2">/</span>
-        <a href="index.html#projects" class="hover:text-white">Projects</a>
-        <span class="mx-2">/</span>
-        <span class="text-white">Automatic Writing Arm</span>
-      </nav>
-      <h1 class="mt-3 text-3xl md:text-4xl font-extrabold">Automatic Writing Arm</h1>
-      <p class="mt-2 max-w-3xl text-slate-300">A compact pen‑plotting gantry built with 3D‑printed parts and simple calibration for precise lettering and drawings.</p>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a><span>/</span><a href="index.html#projects">Projects</a><span>/</span>Automatic Writing Arm
+      </div>
+      <div class="eyebrow">Mechanism Design</div>
+      <h1>Automatic Writing Arm</h1>
+      <p class="hero-copy">Built a compact pen-plotting gantry that converts digital paths into controlled mechanical writing and drawing motion.</p>
+      <div class="chips">
+        <span class="chip">CAD</span>
+        <span class="chip">Arduino</span>
+        <span class="chip">Kinematics</span>
+        <span class="chip">3D Printing</span>
+      </div>
     </div>
   </header>
 
-  <!-- CONTENT (single-column, concise) -->
-  <main class="max-w-7xl mx-auto px-6 py-10 space-y-8">
+  <main class="wrap">
+    <aside class="sidebar" aria-label="Project details">
+      <section class="panel">
+        <h2 class="section-title">Project Info</h2>
+        <div class="small-title">Focus</div>
+        <p>Create a low-cost writing mechanism with repeatable motion and consistent pen contact.</p>
 
-    <!-- Gallery (simple) -->
-    <section>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <figure class="cardish rounded-2xl overflow-hidden"><img src="images/automatic_arm.jpeg" alt="Prototype overview" class="w-full h-56 object-cover img-zoom"></figure>
-        <figure class="cardish rounded-2xl overflow-hidden"><img src="images/Switchcase.jpg" alt="Sample plotted lettering" class="w-full h-56 object-cover img-zoom"></figure>
-        <figure class="cardish rounded-2xl overflow-hidden"><img src="images/arm2.jpg" alt="Detail of carriage and pen holder" class="w-full h-56 object-cover img-zoom"></figure>
-      </div>
+        <div class="small-title">Built</div>
+        <p>Gantry assembly, printed carriage parts, pen holder, calibration workflow, and motion path tests.</p>
+
+        <div class="small-title">Tools</div>
+        <p>Arduino · CAD · 3D printing · stepper control · kinematics · serial path streaming</p>
+      </section>
+
+      <section class="panel">
+        <h2 class="section-title">Links</h2>
+        <div class="link-row">
+          <a class="project-link" href="index.html#projects">Back to projects</a>
+          <a class="project-link" href="index.html#contact">Contact</a>
+        </div>
+      </section>
+    </aside>
+
+    <section class="main">
+      <section class="gallery" aria-label="Project images">
+        <figure class="image-card large">
+          <div class="zoom-frame">
+            <img src="images/automatic_arm.jpeg" alt="Automatic writing arm prototype" loading="lazy" />
+            <div class="screen-preview" aria-hidden="true">
+              <img src="images/automatic_arm.jpeg" alt="" />
+            </div>
+          </div>
+          <figcaption class="caption">Assembled writing arm prototype.</figcaption>
+        </figure>
+        <div class="gallery-side">
+          <figure class="image-card small">
+            <div class="zoom-frame">
+              <img src="images/Switchcase.jpg" alt="Writing output sample from the automatic arm" loading="lazy" />
+              <div class="screen-preview" aria-hidden="true">
+                <img src="images/Switchcase.jpg" alt="" />
+              </div>
+            </div>
+            <figcaption class="caption">Test output from the plotting system.</figcaption>
+          </figure>
+          <figure class="image-card small">
+            <div class="zoom-frame">
+              <img src="images/arm2.jpg" alt="Detail view of writing arm mechanism" loading="lazy" />
+              <div class="screen-preview" aria-hidden="true">
+                <img src="images/arm2.jpg" alt="" />
+              </div>
+            </div>
+            <figcaption class="caption">Mechanism and pen carriage detail.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2 class="section-title">Overview</h2>
+        <p>This project focused on building a simple writing robot that could follow digital paths with stable pen pressure. I worked on the mechanical layout, printed parts, calibration, and motion testing.</p>
+      </section>
+
+      <section class="two-col">
+        <section class="panel">
+          <h2 class="section-title">What I Built</h2>
+          <ul class="clean-list">
+            <li>Two-axis gantry for controlled X-Y motion.</li>
+            <li>3D-printed carriage and pen-holder components.</li>
+            <li>Spring-loaded pen contact for smoother writing.</li>
+            <li>Path testing using generated drawing and lettering files.</li>
+          </ul>
+        </section>
+
+        <section class="panel">
+          <h2 class="section-title">Design Notes</h2>
+          <ul class="clean-list">
+            <li>Adjusted belt tension to reduce inconsistent movement.</li>
+            <li>Calibrated steps/mm using a print-measure-update loop.</li>
+            <li>Reduced backlash through mechanical tuning and path cleanup.</li>
+            <li>Streamed paths over serial for repeatable test runs.</li>
+          </ul>
+        </section>
+      </section>
+
+      <section class="panel">
+        <h2 class="section-title">Key Takeaway</h2>
+        <p>The project showed how small mechanical issues like backlash, belt tension, and pen pressure can strongly affect output quality. The final system produced cleaner, more repeatable drawing paths after calibration and mechanical tuning.</p>
+      </section>
+
+      <section class="panel">
+        <h2 class="section-title">More Projects</h2>
+        <div class="link-row">
+          <a class="project-link" href="propeller.html">Toroidal Propeller Study</a>
+          <a class="project-link" href="dispenser.html">Automatic Water Dispenser</a>
+          <a class="project-link" href="bottle.html">Bottle Holder</a>
+          <a class="project-link" href="bike.html">Bike Frame Design</a>
+          <a class="project-link accent-link" href="index.html#projects">All projects</a>
+        </div>
+      </section>
     </section>
-
-    <!-- Project at a glance (PAR) -->
-    <section class="grid sm:grid-cols-3 gap-4">
-      <div class="cardish rounded-2xl p-5">
-        <h3 class="text-sm font-semibold text-slate-300">Problem</h3>
-        <p class="text-sm text-slate-300 mt-1">Build a low‑cost writing robot with smooth motion and consistent pen pressure.</p>
-      </div>
-      <div class="cardish rounded-2xl p-5">
-        <h3 class="text-sm font-semibold text-slate-300">Approach</h3>
-        <p class="text-sm text-slate-300 mt-1">Gantry design, spring‑loaded pen holder, belt tensioning, steps/mm calibration.</p>
-      </div>
-      <div class="cardish rounded-2xl p-5">
-        <h3 class="text-sm font-semibold text-slate-300">Result</h3>
-        <p class="text-sm text-slate-300 mt-1">~95% path fidelity on vector shapes; clean curves and repeatable lines.</p>
-      </div>
-    </section>
-
-    <!-- Build notes (short bullets) -->
-    <section class="cardish rounded-2xl p-6">
-      <h2 class="text-xl font-bold">Build Notes</h2>
-      <ul class="mt-2 list-disc list-inside text-slate-300 text-sm space-y-1">
-        <li>2‑axis cartesian gantry; 3D‑printed PLA carriages and off‑the‑shelf rails.</li>
-        <li>Spring‑loaded pen holder maintains contact without gouging paper.</li>
-        <li>Simple print‑measure‑update loop for steps/mm; basic skew correction.</li>
-        <li>Paths generated from SVG or parametric functions; streamed over serial.</li>
-      </ul>
-    </section>
-
-    <!-- Actions -->
-    <section class="flex flex-wrap gap-2">
-      <a href="index.html#projects" class="px-4 py-2 rounded-xl chip">Back to projects</a>
-      <a href="index.html#contact" class="px-4 py-2 rounded-xl bg-accent-500 hover:bg-accent-600 text-slate-900 font-semibold">Contact me</a>
-    </section>
-
-    <!-- Simple cross-links -->
-    <section class="cardish rounded-2xl p-6">
-      <h2 class="text-lg font-semibold">More Projects</h2>
-      <div class="mt-3 flex flex-wrap gap-2 text-sm">
-        <a href="propeller.html" class="chip rounded-lg px-3 py-1.5 hover:bg-white/10">Toroidal Propeller</a>
-        <a href="dispenser.html" class="chip rounded-lg px-3 py-1.5 hover:bg-white/10">Automatic Water Dispenser</a>
-        <a href="bottle.html" class="chip rounded-lg px-3 py-1.5 hover:bg-white/10">Water Bottle Holder</a>
-        <a href="bike.html" class="chip rounded-lg px-3 py-1.5 hover:bg-white/10">Bike Design</a>
-      </div>
-    </section>
-
   </main>
 
-  <!-- FOOTER -->
-  <footer class="text-center text-sm text-slate-500 py-8 border-t border-white/10">
-    © 2025 Sameer Khan. All rights reserved.
+  <footer>
+    <span>© 2026 Sameer Khan</span>
+    <span>San Francisco, CA</span>
   </footer>
 </body>
 </html>
