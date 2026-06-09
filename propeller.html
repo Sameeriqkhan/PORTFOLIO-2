@@ -2,231 +2,451 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Toroidal Propeller · Sameer Khan</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Toroidal vs 3-blade propeller: thrust, efficiency, and acoustic comparison on a sensorized test stand. Includes methods, calibration, and representative results." />
-  <meta property="og:title" content="Toroidal Propeller · Sameer Khan" />
-  <meta property="og:description" content="Bench comparison with load cell, INA219, tachometer, and SPL readings; MATLAB post-processing." />
+  <title>Toroidal Propeller Study · Sameer Khan</title>
+  <meta name="description" content="Straightforward engineering project page for Sameer Khan's toroidal propeller study." />
+  <meta property="og:title" content="Toroidal Propeller Study · Sameer Khan" />
+  <meta property="og:description" content="3D-printed toroidal and 3-blade propeller comparison using a custom thrust stand and MATLAB analysis." />
   <meta property="og:type" content="article" />
   <meta property="og:image" content="images/toroidal_cover.jpg" />
 
-  <!-- Tailwind + Inter (matches main site) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ["Inter","system-ui","Segoe UI","Roboto","Helvetica","Arial","sans-serif"] },
-          colors: {
-            base: { 900:"#0d1117", 800:"#161b22", 700:"#1e242d", 600:"#242b36" },
-            line: "#2f3541",
-            accent: { 500:"#e0a458", 600:"#cf913f" }
-          },
-          boxShadow: { panel: "0 12px 40px rgba(0,0,0,.25)" }
-        }
-      }
-    }
-  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
   <style>
-    :root { --bg:#0d1117; --panel:#161b22; --line:#2f3541 }
-    body { background: var(--bg) }
-    .cardish { background: var(--panel); border:1px solid var(--line) }
-    .chip { border:1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.04) }
-    .img-zoom { transition: transform .25s ease }
-    .img-zoom:hover { transform: scale(1.03) }
-    /* Optional: subtle “pop” preview on desktop */
-    @media (hover:hover) and (pointer:fine) {
-      .pop { transition: transform .2s ease, box-shadow .2s ease; position:relative; z-index:0; border-radius: 0.75rem; }
-      .pop:hover, .pop:focus-visible { transform: scale(1.05); z-index: 10; box-shadow: 0 12px 40px rgba(0,0,0,.45); }
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d1117;
+      --panel: #151a22;
+      --panel-soft: #11161d;
+      --line: #2a303a;
+      --line-soft: rgba(255,255,255,.08);
+      --text: #f2f4f8;
+      --muted: #a9b0bd;
+      --subtle: #707987;
+      --accent: #e0a458;
+      --accent-soft: rgba(224,164,88,.12);
+      --radius: 18px;
+      --max: 1180px;
     }
-    table th, table td { border-bottom: 1px solid rgba(255,255,255,.08); }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background:
+        radial-gradient(circle at top right, rgba(224,164,88,.08), transparent 34rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    strong { color: var(--text); font-weight: 700; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(13,17,23,.78);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .nav-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .nav-name {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      list-style: none;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .nav-links a { transition: color .16s ease; }
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .hero-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 34px 24px 44px;
+    }
+
+    .breadcrumb {
+      color: var(--subtle);
+      font-size: 13px;
+      margin-bottom: 26px;
+    }
+
+    .breadcrumb a { color: var(--muted); }
+    .breadcrumb a:hover { color: var(--text); }
+    .breadcrumb span { margin: 0 8px; }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      max-width: 880px;
+      font-size: clamp(2.35rem, 6vw, 4.55rem);
+      line-height: .96;
+      letter-spacing: -.06em;
+      font-weight: 800;
+    }
+
+    .hero-copy {
+      margin-top: 18px;
+      max-width: 720px;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.12rem);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .chip {
+      border: 1px solid var(--line-soft);
+      background: rgba(255,255,255,.035);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 34px 24px 60px;
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 74px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .panel,
+    .image-card {
+      background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.015)), var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .panel { padding: 22px; }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      margin-bottom: 12px;
+    }
+
+    .small-title {
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 700;
+      margin-top: 16px;
+      margin-bottom: 4px;
+    }
+
+    .small-title:first-of-type { margin-top: 0; }
+
+    .sidebar p,
+    .panel p,
+    .panel li {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .main {
+      display: grid;
+      gap: 18px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 18px;
+    }
+
+    .image-card {
+      overflow: hidden;
+      background: var(--panel-soft);
+    }
+
+    .image-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-bottom: 1px solid var(--line-soft);
+      transition: transform .2s ease;
+    }
+
+    .image-card:hover img { transform: scale(1.025); }
+    .image-card.large { min-height: 420px; }
+    .image-card.small { min-height: 201px; }
+
+    .gallery-side {
+      display: grid;
+      gap: 18px;
+    }
+
+    .caption {
+      color: var(--subtle);
+      font-size: 12px;
+      padding: 11px 13px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    ul.clean-list {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    ul.clean-list li {
+      position: relative;
+      padding-left: 16px;
+    }
+
+    ul.clean-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .72em;
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: var(--accent);
+      opacity: .8;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+      border: 1px solid var(--line-soft);
+      background: rgba(255,255,255,.035);
+      border-radius: 10px;
+      padding: 8px 11px;
+      transition: border-color .16s ease, background .16s ease;
+    }
+
+    .project-link:hover {
+      border-color: rgba(224,164,88,.45);
+      background: var(--accent-soft);
+    }
+
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .accent-link {
+      background: var(--accent);
+      color: #121212;
+      border-color: transparent;
+    }
+
+    .accent-link:hover {
+      background: #cf913f;
+      border-color: transparent;
+    }
+
+    footer {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 28px 24px 38px;
+      border-top: 1px solid var(--line-soft);
+      color: var(--subtle);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    @media (max-width: 980px) {
+      .wrap { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .gallery { grid-template-columns: 1fr; }
+      .image-card.large { min-height: 340px; }
+    }
+
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .hero-inner { padding-top: 28px; }
+      .wrap { padding-top: 24px; }
+      .two-col { grid-template-columns: 1fr; }
+      footer { flex-direction: column; }
+    }
   </style>
 </head>
-<body class="font-sans text-slate-200 antialiased">
-
-  <!-- NAV -->
-  <nav class="sticky top-0 z-30 backdrop-blur bg-base-900/75 border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-      <a class="font-bold" href="index.html">Sameer Khan</a>
-      <div class="hidden md:flex items-center gap-5 text-slate-300">
-        <a href="index.html#about" class="hover:text-white">About</a>
-        <a href="index.html#skills" class="hover:text-white">Skills</a>
-        <a href="index.html#projects" class="hover:text-white">Projects</a>
-        <a href="index.html#contact" class="hover:text-white">Contact</a>
-      </div>
+<body>
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a class="nav-name" href="index.html">Sameer Khan</a>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
     </div>
   </nav>
 
-  <!-- HEADER -->
-  <header class="border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-6 py-8">
-      <nav class="text-sm text-slate-400">
-        <a href="index.html" class="hover:text-white">Home</a>
-        <span class="mx-2">/</span>
-        <a href="index.html#projects" class="hover:text-white">Projects</a>
-        <span class="mx-2">/</span>
-        <span class="text-white">Toroidal Propeller</span>
-      </nav>
-      <h1 class="mt-3 text-3xl md:text-4xl font-extrabold">Toroidal Propeller vs. 3-Blade</h1>
-      <p class="mt-2 max-w-3xl text-slate-300">
-        Bench comparison of toroidal and conventional 3-blade props for thrust, efficiency (thrust/W), and acoustics (dBA).
-        Sensorized stand with load cell, power/RPM sensing, and SPL readings; post-processed in <strong>MATLAB</strong>.
-      </p>
-      <div class="mt-4 flex flex-wrap gap-2 text-xs">
-        <span class="chip rounded-full px-3 py-1">Load Cell (1 kg) + HX711</span>
-        <span class="chip rounded-full px-3 py-1">INA219 (V/I/Power)</span>
-        <span class="chip rounded-full px-3 py-1">Laser Tachometer</span>
-        <span class="chip rounded-full px-3 py-1">SPL (dBA)</span>
-        <span class="chip rounded-full px-3 py-1">MATLAB</span>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a><span>/</span><a href="index.html#projects">Projects</a><span>/</span>Toroidal Propeller Study
+      </div>
+      <div class="eyebrow">Experimental Testing</div>
+      <h1>Toroidal Propeller Study</h1>
+      <p class="hero-copy">Designed, printed, and tested toroidal propeller prototypes against a conventional 3-blade propeller using a custom thrust stand.</p>
+      <div class="chips">
+        <span class="chip">CAD</span>
+        <span class="chip">3D Printing</span>
+        <span class="chip">Instrumentation</span>
+        <span class="chip">MATLAB</span>
       </div>
     </div>
   </header>
 
-  <!-- CONTENT -->
-  <main class="max-w-7xl mx-auto px-6 py-10 space-y-8">
+  <main class="wrap">
+    <aside class="sidebar" aria-label="Project details">
+      <section class="panel">
+        <h2 class="section-title">Project Info</h2>
+        <div class="small-title">Focus</div>
+        <p>Compare thrust, power use, and noise between toroidal and 3-blade propeller designs.</p>
 
-    <!-- Gallery -->
-    <section>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <figure class="cardish rounded-2xl overflow-hidden">
-          <img src="images/propellers.jpg" alt="Propeller comparison (toroidal vs 3-blade)" class="pop w-full h-56 object-cover">
+        <div class="small-title">Built</div>
+        <p>Propeller prototypes, test stand, sensor setup, and MATLAB analysis workflow.</p>
+
+        <div class="small-title">Tools</div>
+        <p>SolidWorks · FDM printing · MATLAB · load cell · HX711 · INA219 · laser tachometer</p>
+      </section>
+
+      <section class="panel">
+        <h2 class="section-title">Links</h2>
+        <div class="link-row">
+          <a class="project-link" href="index.html#projects">Back to projects</a>
+          <a class="project-link" href="index.html#contact">Contact</a>
+        </div>
+      </section>
+    </aside>
+
+    <section class="main">
+      <section class="gallery" aria-label="Project images">
+        <figure class="image-card large">
+          <img src="images/toroidal_cover.jpg" alt="Toroidal propeller prototype mounted on test stand" loading="lazy" />
+          <figcaption class="caption">Toroidal propeller prototype during testing.</figcaption>
         </figure>
-        <figure class="cardish rounded-2xl overflow-hidden">
-          <img src="images/setup_tor.jpg" alt="Toroidal propeller test setup" class="pop w-full h-56 object-cover">
-        </figure>
-        <figure class="cardish rounded-2xl overflow-hidden">
-          <img src="images/circuit_setup.jpg" alt="Load cell and instrumentation" class="pop w-full h-56 object-cover">
-        </figure>
-        <figure class="cardish rounded-2xl overflow-hidden">
-          <img src="images/toroidal_cover.jpg" alt="Toroidal propeller close-up" class="pop w-full h-56 object-cover">
-        </figure>
-      </div>
+        <div class="gallery-side">
+          <figure class="image-card small">
+            <img src="images/propellers.jpg" alt="Toroidal and 3-blade propeller prototypes" loading="lazy" />
+            <figcaption class="caption">Prototype comparison.</figcaption>
+          </figure>
+          <figure class="image-card small">
+            <img src="images/circuit_setup.jpg" alt="Instrumentation setup for propeller testing" loading="lazy" />
+            <figcaption class="caption">Sensor and data collection setup.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2 class="section-title">Overview</h2>
+        <p>This project tested whether a toroidal propeller design could reduce noise while maintaining useful thrust. I built the test setup, collected measurements, and compared the two propeller types using MATLAB.</p>
+      </section>
+
+      <section class="two-col">
+        <section class="panel">
+          <h2 class="section-title">What I Built</h2>
+          <ul class="clean-list">
+            <li>3D-printed toroidal and 3-blade propeller prototypes.</li>
+            <li>Custom thrust stand for controlled bench testing.</li>
+            <li>Sensor workflow for thrust, power, RPM, and noise readings.</li>
+            <li>MATLAB analysis for comparing test data.</li>
+          </ul>
+        </section>
+
+        <section class="panel">
+          <h2 class="section-title">Testing Setup</h2>
+          <ul class="clean-list">
+            <li>BLDC motor and ESC for actuation.</li>
+            <li>Load cell and HX711 for thrust measurement.</li>
+            <li>INA219 for voltage, current, and power.</li>
+            <li>Laser tachometer and dBA readings for RPM and noise.</li>
+          </ul>
+        </section>
+      </section>
+
+      <section class="panel">
+        <h2 class="section-title">Key Takeaway</h2>
+        <p>The toroidal propeller was most promising at lower RPM, where it produced smoother acoustic behavior and competitive efficiency. At higher RPM, the design showed tradeoffs in noise and efficiency, making the test useful for understanding where the geometry performs best.</p>
+      </section>
+
+      <section class="panel">
+        <h2 class="section-title">More Projects</h2>
+        <div class="link-row">
+          <a class="project-link" href="arm.html">Automatic Writing Arm</a>
+          <a class="project-link" href="dispenser.html">Automatic Water Dispenser</a>
+          <a class="project-link" href="bottle.html">Bottle Holder</a>
+          <a class="project-link" href="bike.html">Bike Frame Design</a>
+          <a class="project-link accent-link" href="index.html#projects">All projects</a>
+        </div>
+      </section>
     </section>
-
-    <!-- PAR row -->
-    <section class="grid sm:grid-cols-3 gap-4">
-      <div class="cardish rounded-2xl p-5">
-        <h3 class="text-sm font-semibold text-slate-300">Problem</h3>
-        <p class="text-sm text-slate-300 mt-1">Can a toroidal prop reduce perceived noise while maintaining or improving efficiency vs a standard 3-blade?</p>
-      </div>
-      <div class="cardish rounded-2xl p-5">
-        <h3 class="text-sm font-semibold text-slate-300">Approach</h3>
-        <p class="text-sm text-slate-300 mt-1">Sensorized thrust stand: thrust (load cell), V/I/Power (INA219), RPM (laser tach), SPL (dBA). MATLAB post-processing.</p>
-      </div>
-      <div class="cardish rounded-2xl p-5">
-        <h3 class="text-sm font-semibold text-slate-300">Result</h3>
-        <p class="text-sm text-slate-300 mt-1">Toroidal shows better efficiency and lower noise at <em>low RPM</em>, but trends reverse at higher RPM (efficiency falls, SPL rises).</p>
-      </div>
-    </section>
-
-    <!-- Methods (from lab) -->
-    <section class="cardish rounded-2xl p-6">
-      <h2 class="text-xl font-bold">Methods (Rig & Sensors)</h2>
-      <ul class="mt-2 list-disc list-inside text-slate-300 text-sm space-y-1">
-        <li><strong>Actuation:</strong> A2212 1000KV BLDC + 30A ESC, GPS-2303 bench PSU.</li>
-        <li><strong>Thrust:</strong> 1 kg strain-gauge load cell + HX711 ADC.</li>
-        <li><strong>Electrical:</strong> INA219 for voltage, current, and power.</li>
-        <li><strong>Speed:</strong> NEIKO 20713A laser tachometer with reflective tape.</li>
-        <li><strong>Acoustics:</strong> dBA via Decibel X app (iPhone SE), off-axis measurement.</li>
-        <li><strong>Procedure:</strong> Step RPM bands, log thrust/V/I/SPL, compute thrust/W; repeat for 3-blade and toroidal props.</li>
-      </ul>
-    </section>
-
-    <!-- Calibration (from lab) -->
-    <section class="cardish rounded-2xl p-6">
-      <h2 class="text-xl font-bold">Load Cell Calibration</h2>
-      <p class="mt-2 text-slate-300 text-sm">
-        Linear fit between known masses and readings: <code>y = 0.98854·x − 0.019826 ± 1.0385 g</code> (95% interval). Calibration was done with 10–82 g references and validated over 10 trials. 
-      </p>
-      <p class="mt-2 text-slate-400 text-xs">Interpretation: scale is near 1:1 with small offset and ~±1.04 g prediction interval across the span.</p>
-    </section>
-
-    <!-- Representative results (tables pulled from report) -->
-    <section class="cardish rounded-2xl p-6">
-      <h2 class="text-xl font-bold">Representative Results</h2>
-
-      <div class="mt-4 overflow-x-auto">
-        <table class="min-w-[520px] w-full text-sm">
-          <thead class="bg-white/5">
-            <tr>
-              <th class="text-left p-2">3-Blade: RPM</th>
-              <th class="text-left p-2">Noise (dB)</th>
-              <th class="text-left p-2">Toroidal: RPM</th>
-              <th class="text-left p-2">Noise (dB)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="odd:bg-white/0 even:bg-white/[.03]">
-              <td class="p-2">1855</td>
-              <td class="p-2">66</td>
-              <td class="p-2">1115</td>
-              <td class="p-2">65.5</td>
-            </tr>
-            <tr class="odd:bg-white/0 even:bg-white/[.03]">
-              <td class="p-2">2636</td>
-              <td class="p-2">71.5</td>
-              <td class="p-2">1500</td>
-              <td class="p-2">68.3</td>
-            </tr>
-            <tr class="odd:bg-white/0 even:bg-white/[.03]">
-              <td class="p-2">3288</td>
-              <td class="p-2">72.5</td>
-              <td class="p-2">1805</td>
-              <td class="p-2">77.0</td>
-            </tr>
-            <tr class="odd:bg-white/0 even:bg-white/[.03]">
-              <td class="p-2">3779</td>
-              <td class="p-2">78.3</td>
-              <td class="p-2">2087</td>
-              <td class="p-2">74.7</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p class="mt-3 text-slate-300 text-sm">
-        Trend summary: toroidal is most competitive at lower RPM bands (higher thrust/W and lower dBA). As RPM climbs, the toroidal’s more aggressive ramp angle increases acoustic disruption and reduces efficiency; the standard 3-blade overtakes it at higher thrust/RPM. 
-      </p>
-      <p class="mt-2 text-slate-400 text-xs">
-        Notes: values reflect one test rig and specific prints; results vary with prop size, pitch, motor, and stand geometry.
-      </p>
-    </section>
-
-    <!-- Theory (short) -->
-    <section class="cardish rounded-2xl p-6">
-      <h2 class="text-xl font-bold">Theory (Brief)</h2>
-      <p class="mt-2 text-slate-300 text-sm">
-        Blade-element theory integrates sectional lift along the radius to estimate thrust; with our stationary setup (V≈0), angle of attack aligns with blade pitch. Toroidal geometry effectively eliminates a discrete wingtip, redistributing vortices and potentially lowering induced drag and perceived noise at low RPM. Model trends captured thrust ∝ n² but absolute magnitudes deviated from experiment due to chord/angle distribution and stationary test assumptions.
-      </p>
-    </section>
-
-    <!-- Actions -->
-    <section class="flex flex-wrap gap-2">
-      <a href="index.html#projects" class="px-4 py-2 rounded-xl chip">Back to projects</a>
-      <a href="index.html#contact" class="px-4 py-2 rounded-xl bg-accent-500 hover:bg-accent-600 text-slate-900 font-semibold">Contact me</a>
-    </section>
-
-    <!-- Cross-links -->
-    <section class="cardish rounded-2xl p-6">
-      <h2 class="text-lg font-semibold">More Projects</h2>
-      <div class="mt-3 flex flex-wrap gap-2 text-sm">
-        <a href="arm.html" class="chip rounded-lg px-3 py-1.5 hover:bg-white/10">Automatic Writing Arm</a>
-        <a href="dispenser.html" class="chip rounded-lg px-3 py-1.5 hover:bg-white/10">Automatic Water Dispenser</a>
-        <a href="bottle.html" class="chip rounded-lg px-3 py-1.5 hover:bg-white/10">Water Bottle Holder</a>
-        <a href="bike.html" class="chip rounded-lg px-3 py-1.5 hover:bg-white/10">Single Speed Racer</a>
-      </div>
-    </section>
-
   </main>
 
-  <!-- FOOTER -->
-  <footer class="text-center text-sm text-slate-500 py-8 border-t border-white/10">
-    © 2025 Sameer Khan. All rights reserved.
+  <footer>
+    <span>© 2026 Sameer Khan</span>
+    <span>San Francisco, CA</span>
   </footer>
 </body>
 </html>
-
-
