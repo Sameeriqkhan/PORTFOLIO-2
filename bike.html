@@ -2,159 +2,455 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Single Speed Racer · Sameer Khan</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Single Speed Racer — bike frame concept by Sameer Khan. Parts modeled in Creo, presentation video created in 3ds Max. Concise breakdown with video and images." />
-  <meta property="og:title" content="Single Speed Racer · Sameer Khan" />
-  <meta property="og:description" content="Bike frame concept — Creo parts + 3ds Max video." />
+  <title>Bike Frame Design · Sameer Khan</title>
+  <meta name="description" content="Bike frame design project by Sameer Khan. A concise engineering portfolio case study focused on CAD modeling, design tradeoffs, and presentation visuals." />
+  <meta property="og:title" content="Bike Frame Design · Sameer Khan" />
+  <meta property="og:description" content="Bike frame concept modeled in Creo with presentation visuals created in 3ds Max." />
   <meta property="og:type" content="article" />
   <meta property="og:image" content="images/bike.jpg" />
 
-  <!-- Tailwind + Inter (matches main site) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ["Inter","system-ui","Segoe UI","Roboto","Helvetica","Arial","sans-serif"] },
-          colors: {
-            base: { 900:"#0d1117", 800:"#161b22", 700:"#1e242d", 600:"#242b36" },
-            line: "#2f3541",
-            accent: { 500:"#e0a458", 600:"#cf913f" }
-          },
-          boxShadow: { panel: "0 12px 40px rgba(0,0,0,.25)" }
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d1117;
+      --panel: #151a22;
+      --panel-soft: #11161d;
+      --line: #2a303a;
+      --line-soft: rgba(255,255,255,.08);
+      --text: #f2f4f8;
+      --muted: #a9b0bd;
+      --subtle: #707987;
+      --accent: #e0a458;
+      --accent-soft: rgba(224,164,88,.12);
+      --radius: 18px;
+      --max: 1180px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background:
+        radial-gradient(circle at top right, rgba(224,164,88,.08), transparent 34rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(13,17,23,.78);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .nav-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .nav-name {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      list-style: none;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .nav-links a { transition: color .16s ease; }
+    .nav-links a:hover { color: var(--text); }
+
+    .hero { border-bottom: 1px solid var(--line-soft); }
+
+    .hero-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 44px 24px 34px;
+    }
+
+    .breadcrumbs {
+      color: var(--subtle);
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .breadcrumbs a { color: var(--muted); }
+    .breadcrumbs a:hover { color: var(--text); }
+    .breadcrumbs span { margin: 0 8px; }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(2.25rem, 5vw, 4.25rem);
+      line-height: .98;
+      letter-spacing: -.06em;
+      font-weight: 800;
+      max-width: 860px;
+    }
+
+    .hero-copy {
+      margin-top: 18px;
+      max-width: 720px;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.12rem);
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 34px 24px 60px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 74px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.015)), var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      margin-bottom: 12px;
+    }
+
+    .main {
+      display: grid;
+      gap: 24px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+
+    .section-head h2,
+    .panel h2 {
+      font-size: 22px;
+      line-height: 1.1;
+      letter-spacing: -.04em;
+      font-weight: 800;
+    }
+
+    .panel p,
+    .panel li {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .panel ul {
+      margin-top: 12px;
+      padding-left: 18px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .info-list {
+      display: grid;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .info-list strong {
+      display: block;
+      color: var(--text);
+      font-size: 13px;
+      margin-bottom: 2px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .chip {
+      border: 1px solid var(--line-soft);
+      background: rgba(255,255,255,.035);
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel-soft);
+    }
+
+    .video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .image-frame {
+      position: relative;
+      overflow: visible;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--panel-soft);
+      cursor: zoom-in;
+    }
+
+    .image-frame::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(6,8,12,.56);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease;
+      z-index: 85;
+    }
+
+    .image-frame img {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      border-radius: calc(var(--radius) - 1px);
+      transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (hover:hover) and (pointer:fine) {
+      .image-frame:hover::before { opacity: 1; }
+      .image-frame:hover img {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: min(82vw, 980px);
+        height: min(76vh, 660px);
+        transform: translate(-50%, -50%);
+        object-fit: contain;
+        background: var(--panel-soft);
+        padding: 8px;
+        border: 1px solid rgba(255,255,255,.16);
+        box-shadow: 0 30px 90px rgba(0,0,0,.62);
+        filter: contrast(1.04);
+        z-index: 90;
       }
     }
-  </script>
-  <style>
-    :root { --bg:#0d1117; --panel:#161b22; --line:#2f3541 }
-    body { background: var(--bg) }
-    .cardish { background: var(--panel); border:1px solid var(--line) }
-    .chip { border:1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.04) }
-    /* Responsive 16:9 video wrapper */
-    .video-wrap { position: relative; width: 100%; padding-top: 56.25%; border:1px solid var(--line); border-radius: 16px; overflow: hidden; background:#0f1520; }
-    .video-wrap iframe { position: absolute; inset:0; width:100%; height:100%; }
-    .img-zoom { transition: transform .25s ease }
-    .img-zoom:hover { transform: scale(1.03) }
+
+    .actions,
+    .more-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .button {
+      border: 1px solid var(--line-soft);
+      background: rgba(255,255,255,.035);
+      border-radius: 12px;
+      padding: 9px 12px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      transition: color .16s ease, border-color .16s ease, background .16s ease;
+    }
+
+    .button:hover {
+      color: var(--text);
+      border-color: rgba(224,164,88,.45);
+      background: var(--accent-soft);
+    }
+
+    footer {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 28px 24px 38px;
+      border-top: 1px solid var(--line-soft);
+      color: var(--subtle);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .wrap { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hero-inner { padding-top: 36px; }
+      .image-frame img { height: 240px; }
+      footer { flex-direction: column; }
+    }
   </style>
 </head>
-<body class="font-sans text-slate-200 antialiased">
-
-  <!-- NAV -->
-  <nav class="sticky top-0 z-30 backdrop-blur bg-base-900/75 border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-      <a class="font-bold" href="index.html">Sameer Khan</a>
-      <div class="hidden md:flex items-center gap-5 text-slate-300">
-        <a href="index.html#about" class="hover:text-white">About</a>
-        <a href="index.html#skills" class="hover:text-white">Skills</a>
-        <a href="index.html#projects" class="hover:text-white">Projects</a>
-        <a href="index.html#contact" class="hover:text-white">Contact</a>
-      </div>
+<body>
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a class="nav-name" href="index.html">Sameer Khan</a>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
     </div>
   </nav>
 
-  <!-- HEADER -->
-  <header class="border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-6 py-8">
-      <nav class="text-sm text-slate-400">
-        <a href="index.html" class="hover:text-white">Home</a>
-        <span class="mx-2">/</span>
-        <a href="index.html#projects" class="hover:text-white">Projects</a>
-        <span class="mx-2">/</span>
-        <span class="text-white">Single Speed Racer</span>
+  <header class="hero">
+    <div class="hero-inner">
+      <nav class="breadcrumbs" aria-label="Breadcrumbs">
+        <a href="index.html">Home</a><span>/</span><a href="index.html#projects">Projects</a><span>/</span>Bike Frame Design
       </nav>
-      <h1 class="mt-3 text-3xl md:text-4xl font-extrabold">Single Speed Racer (Bike Design)</h1>
-      <p class="mt-2 max-w-3xl text-slate-300">
-        Concept bike frame focused on strength-to-weight and clean presentation. Mechanical parts modeled in <strong>Creo</strong>;
-        demo video created in <strong>3ds Max</strong>.
-      </p>
-      <div class="mt-4 flex flex-wrap gap-2 text-xs">
-        <span class="chip rounded-full px-3 py-1">Creo</span>
-        <span class="chip rounded-full px-3 py-1">3ds Max</span>
-        <span class="chip rounded-full px-3 py-1">Design for Manufacturing</span>
-      </div>
+      <div class="eyebrow">CAD Design</div>
+      <h1>Bike Frame Design</h1>
+      <p class="hero-copy">A single-speed bike frame concept modeled in Creo and presented with a short 3D animation.</p>
     </div>
   </header>
 
-  <!-- CONTENT -->
-  <main class="max-w-7xl mx-auto px-6 py-10 space-y-8">
+  <main class="wrap">
+    <aside class="sidebar" aria-label="Project details">
+      <section class="panel">
+        <h2 class="section-title">Project Info</h2>
+        <div class="info-list">
+          <p><strong>Focus</strong> Frame geometry, structure, and presentation</p>
+          <p><strong>Role</strong> CAD modeling and visual presentation</p>
+          <p><strong>Tools</strong> Creo, 3ds Max</p>
+        </div>
+        <div class="chips">
+          <span class="chip">CAD</span>
+          <span class="chip">Frame Design</span>
+          <span class="chip">3D Animation</span>
+        </div>
+      </section>
 
-    <!-- Video -->
-    <section>
-      <div class="video-wrap shadow-[0_8px_24px_rgba(0,0,0,.35)]">
-        <iframe
-          src="https://www.youtube.com/embed/fLyE0Lb4RWU"
-          title="Single Speed Racer — Design Video"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-          referrerpolicy="strict-origin-when-cross-origin">
-        </iframe>
-      </div>
+      <section class="panel">
+        <h2 class="section-title">Files</h2>
+        <div class="actions">
+          <a class="button" href="index.html#projects">Back to Projects</a>
+          <a class="button" href="index.html#contact">Contact</a>
+        </div>
+      </section>
+    </aside>
+
+    <section class="main">
+      <section class="panel">
+        <h2>Overview</h2>
+        <p style="margin-top:10px">This project focused on developing a clean bike frame concept while thinking through geometry, part fit, joint layout, and manufacturability.</p>
+      </section>
+
+      <section class="panel">
+        <h2>Design Video</h2>
+        <p style="margin-top:10px; margin-bottom:16px">The presentation video shows the final frame concept and overall design form.</p>
+        <div class="video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/fLyE0Lb4RWU"
+            title="Single Speed Racer — Design Video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            referrerpolicy="strict-origin-when-cross-origin">
+          </iframe>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>What I Built</h2>
+        <ul>
+          <li>Modeled the bike frame and related parts in Creo.</li>
+          <li>Considered tube layout, joint clearances, and basic manufacturability.</li>
+          <li>Created a 3D presentation video in 3ds Max.</li>
+        </ul>
+      </section>
+
+      <section class="panel">
+        <h2>Gallery</h2>
+        <p style="margin-top:10px; margin-bottom:16px">Hover over the image to preview it larger over the page.</p>
+        <div class="gallery-grid">
+          <figure class="image-frame">
+            <img src="images/bike.jpg" alt="Bike frame design render" loading="lazy" />
+          </figure>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Key Takeaway</h2>
+        <p style="margin-top:10px">The project helped connect CAD modeling with design communication: the frame had to be understandable not only as a model, but also as a clear engineering presentation.</p>
+      </section>
+
+      <section class="panel">
+        <h2>More Projects</h2>
+        <div class="more-links" style="margin-top:14px">
+          <a class="button" href="propeller.html">Toroidal Propeller</a>
+          <a class="button" href="arm.html">Automatic Writing Arm</a>
+          <a class="button" href="dispenser.html">Automatic Water Dispenser</a>
+          <a class="button" href="bottle.html">Water Bottle Holder</a>
+        </div>
+      </section>
     </section>
-
-    <!-- Concise PAR -->
-    <section class="grid sm:grid-cols-3 gap-4">
-      <div class="cardish rounded-2xl p-5">
-        <h3 class="text-sm font-semibold text-slate-300">Problem</h3>
-        <p class="text-sm text-slate-300 mt-1">Balance frame stiffness and mass for a responsive single-speed concept.</p>
-      </div>
-      <div class="cardish rounded-2xl p-5">
-        <h3 class="text-sm font-semibold text-slate-300">Approach</h3>
-        <p class="text-sm text-slate-300 mt-1">Tube/section trade-offs, joint geometry in <strong>Creo</strong>; clean visuals + motion in <strong>3ds Max</strong>.</p>
-      </div>
-      <div class="cardish rounded-2xl p-5">
-        <h3 class="text-sm font-semibold text-slate-300">Result</h3>
-        <p class="text-sm text-slate-300 mt-1">Clear presentation of decisions and manufacturability constraints; polished demo video.</p>
-      </div>
-    </section>
-
-    <!-- Build Notes (short) -->
-    <section class="cardish rounded-2xl p-6">
-      <h2 class="text-xl font-bold">Build Notes</h2>
-      <ul class="mt-2 list-disc list-inside text-slate-300 text-sm space-y-1">
-        <li>Parts modeled in <strong>Creo</strong> with attention to tube mitering and joint clearances.</li>
-        <li>Design video composed and rendered in <strong>3ds Max</strong> for stakeholder presentation.</li>
-        <li>Considered weld access, fixture points, and post-processing steps.</li>
-      </ul>
-    </section>
-
-    <!-- Simple Gallery -->
-    <section>
-      <h2 class="text-xl font-bold mb-3">Gallery</h2>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <figure class="cardish rounded-2xl overflow-hidden">
-          <img src="images/bike.jpg" alt="Bike frame concept render" class="w-full h-56 object-cover img-zoom">
-        </figure>
-      </div>
-    </section>
-
-    <!-- Actions -->
-    <section class="flex flex-wrap gap-2">
-      <a href="index.html#projects" class="px-4 py-2 rounded-xl chip">Back to projects</a>
-      <a href="index.html#contact" class="px-4 py-2 rounded-xl bg-accent-500 hover:bg-accent-600 text-slate-900 font-semibold">Contact me</a>
-    </section>
-
-    <!-- Cross-links -->
-    <section class="cardish rounded-2xl p-6">
-      <h2 class="text-lg font-semibold">More Projects</h2>
-      <div class="mt-3 flex flex-wrap gap-2 text-sm">
-        <a href="propeller.html" class="chip rounded-lg px-3 py-1.5 hover:bg-white/10">Toroidal Propeller</a>
-        <a href="arm.html" class="chip rounded-lg px-3 py-1.5 hover:bg-white/10">Automatic Writing Arm</a>
-        <a href="dispenser.html" class="chip rounded-lg px-3 py-1.5 hover:bg-white/10">Automatic Water Dispenser</a>
-        <a href="bottle.html" class="chip rounded-lg px-3 py-1.5 hover:bg-white/10">Water Bottle Holder</a>
-      </div>
-    </section>
-
   </main>
 
-  <!-- FOOTER -->
-  <footer class="text-center text-sm text-slate-500 py-8 border-t border-white/10">
-    © 2025 Sameer Khan. All rights reserved.
+  <footer>
+    <span>© 2026 Sameer Khan</span>
+    <span>San Francisco, CA</span>
   </footer>
 </body>
 </html>
