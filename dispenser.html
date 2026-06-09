@@ -4,160 +4,475 @@
   <meta charset="utf-8" />
   <title>Automatic Water Dispenser · Sameer Khan</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Automatic Water Dispenser — ESP32 + moisture sensing + Adafruit IO. Concise breakdown with images and build notes." />
+  <meta name="description" content="Automatic Water Dispenser — ESP32-based plant watering system with moisture sensing, pump control, and Adafruit IO monitoring." />
   <meta property="og:title" content="Automatic Water Dispenser · Sameer Khan" />
-  <meta property="og:description" content="ESP32 pair with moisture sensor and pump, UI on Adafruit IO." />
+  <meta property="og:description" content="ESP32-based automatic watering system with moisture sensing and pump control." />
   <meta property="og:type" content="article" />
   <meta property="og:image" content="images/wat_dis.jpg" />
 
-  <!-- Tailwind + Inter (matches main site) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ["Inter","system-ui","Segoe UI","Roboto","Helvetica","Arial","sans-serif"] },
-          colors: {
-            base: { 900:"#0d1117", 800:"#161b22", 700:"#1e242d", 600:"#242b36" },
-            line: "#2f3541",
-            accent: { 500:"#e0a458", 600:"#cf913f" }
-          },
-          boxShadow: { panel: "0 12px 40px rgba(0,0,0,.25)" }
-        }
-      }
-    }
-  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
   <style>
-    :root { --bg:#0d1117; --panel:#161b22; --line:#2f3541 }
-    body { background: var(--bg) }
-    .cardish { background: var(--panel); border:1px solid var(--line) }
-    .chip { border:1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.04) }
-    .img-zoom { transition: transform .25s ease }
-    .img-zoom:hover { transform: scale(1.03) }
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --panel: #ffffff;
+      --panel-soft: #f7f7f7;
+      --line: #e7e7e7;
+      --line-strong: #d7d7d7;
+      --text: #111111;
+      --muted: #5f5f5f;
+      --subtle: #8a8a8a;
+      --shadow: 0 10px 30px rgba(0,0,0,.06);
+      --radius: 18px;
+      --max: 1120px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(255,255,255,.86);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .nav-name {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      list-style: none;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff 0%, #fbfbfb 100%);
+    }
+
+    .hero-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 34px 24px 30px;
+    }
+
+    .crumbs {
+      font-size: 13px;
+      color: var(--subtle);
+      margin-bottom: 16px;
+    }
+
+    .crumbs a:hover { color: var(--text); }
+
+    .eyebrow {
+      color: var(--subtle);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: .98;
+      letter-spacing: -.05em;
+      font-weight: 800;
+    }
+
+    .hero p {
+      margin-top: 14px;
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 28px 24px 60px;
+      display: grid;
+      gap: 22px;
+    }
+
+    .panel,
+    .gallery-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .panel { padding: 24px; }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      background: var(--panel-soft);
+      border-radius: 999px;
+      padding: 6px 11px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      margin-bottom: 10px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .info-block h3 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--subtle);
+      margin-bottom: 6px;
+    }
+
+    .info-block p {
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .gallery-card {
+      overflow: hidden;
+      position: relative;
+      background: #fff;
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 245px;
+      object-fit: cover;
+      transition: transform .22s ease, filter .22s ease;
+      cursor: zoom-in;
+    }
+
+    .gallery-card:hover img {
+      transform: scale(1.03);
+      filter: contrast(1.02);
+    }
+
+    .list {
+      padding-left: 18px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .list li + li { margin-top: 6px; }
+
+    .actions,
+    .more-projects {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn,
+    .mini-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background .15s ease, border-color .15s ease, color .15s ease;
+    }
+
+    .btn {
+      border: 1px solid var(--line-strong);
+      background: #fff;
+      color: var(--text);
+    }
+
+    .btn:hover,
+    .mini-link:hover {
+      background: var(--panel-soft);
+      border-color: #cfcfcf;
+    }
+
+    .mini-link {
+      border: 1px solid var(--line);
+      background: var(--panel-soft);
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .preview-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 90;
+      display: none;
+    }
+
+    .preview-overlay.active { display: block; }
+
+    .preview-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,.18);
+    }
+
+    .preview-image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: min(86vw, 980px);
+      max-height: 82vh;
+      border-radius: 18px;
+      border: 1px solid #d9d9d9;
+      box-shadow: 0 24px 70px rgba(0,0,0,.18);
+      background: #fff;
+      object-fit: contain;
+    }
+
+    footer {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 28px 24px 38px;
+      border-top: 1px solid var(--line);
+      color: var(--subtle);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .info-grid,
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      footer { flex-direction: column; }
+      .preview-image { max-width: 92vw; max-height: 72vh; }
+    }
   </style>
 </head>
-<body class="font-sans text-slate-200 antialiased">
-
-  <!-- NAV -->
-  <nav class="sticky top-0 z-30 backdrop-blur bg-base-900/75 border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-      <a class="font-bold" href="index.html">Sameer Khan</a>
-      <div class="hidden md:flex items-center gap-5 text-slate-300">
-        <a href="index.html#about" class="hover:text-white">About</a>
-        <a href="index.html#skills" class="hover:text-white">Skills</a>
-        <a href="index.html#projects" class="hover:text-white">Projects</a>
-        <a href="index.html#contact" class="hover:text-white">Contact</a>
-      </div>
+<body>
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a class="nav-name" href="index.html">Sameer Khan</a>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
     </div>
   </nav>
 
-  <!-- HEADER (simple) -->
-  <header class="border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-6 py-8">
-      <nav class="text-sm text-slate-400">
-        <a href="index.html" class="hover:text-white">Home</a>
-        <span class="mx-2">/</span>
-        <a href="index.html#projects" class="hover:text-white">Projects</a>
-        <span class="mx-2">/</span>
-        <span class="text-white">Automatic Water Dispenser</span>
-      </nav>
-      <h1 class="mt-3 text-3xl md:text-4xl font-extrabold">Automatic Water Dispenser</h1>
-      <p class="mt-2 max-w-3xl text-slate-300">
-        Two-ESP32 system for plant watering with <strong>moisture sensing</strong>, pump control, and a simple UI on <strong>Adafruit IO</strong>.
-        Designed for reliable hydration without over-watering.
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="crumbs">
+        <a href="index.html">Home</a>
+        <span> / </span>
+        <a href="index.html#projects">Projects</a>
+        <span> / </span>
+        <span>Automatic Water Dispenser</span>
+      </div>
+      <div class="eyebrow">IoT Hardware Project</div>
+      <h1>Automatic Water Dispenser</h1>
+      <p>
+        ESP32-based plant watering system with moisture sensing, pump control, and a simple Adafruit IO dashboard.
+        Built to automate watering and keep soil conditions more consistent.
       </p>
-      <div class="mt-4 flex flex-wrap gap-2 text-xs">
-        <span class="chip rounded-full px-3 py-1">ESP32</span>
-        <span class="chip rounded-full px-3 py-1">Moisture Sensor (I²C)</span>
-        <span class="chip rounded-full px-3 py-1">Adafruit IO</span>
-        <span class="chip rounded-full px-3 py-1">Pump & Enclosure</span>
+      <div class="chips">
+        <span class="chip">ESP32</span>
+        <span class="chip">Moisture Sensor</span>
+        <span class="chip">Pump Control</span>
+        <span class="chip">Adafruit IO</span>
+        <span class="chip">Enclosure Design</span>
       </div>
     </div>
   </header>
 
-  <!-- CONTENT (concise, single-column) -->
-  <main class="max-w-7xl mx-auto px-6 py-10 space-y-8">
-
-    <!-- Gallery -->
-<!-- Gallery -->
-<section>
-  <div class="gallery-grid grid sm:grid-cols-3 gap-4">
-    <figure class="cardish rounded-2xl overflow-visible p-0">
-      <img
-        src="images/wat_dis.jpg"
-        alt="Water dispenser main setup"
-        class="pop w-full h-56 object-cover"
-      >
-    </figure>
-    <figure class="cardish rounded-2xl overflow-visible p-0">
-      <img
-        src="images/plant_circuit.jpg"
-        alt="Plant circuit close-up"
-        class="pop w-full h-56 object-cover"
-      >
-    </figure>
-    <figure class="cardish rounded-2xl overflow-visible p-0">
-      <img
-        src="images/plant_circuit2.jpg"
-        alt="Pump and control wiring"
-        class="pop w-full h-56 object-cover"
-      >
-    </figure>
-  </div>
-</section>
-
-    <!-- Project Breakdown (PAR) -->
-    <section class="grid sm:grid-cols-3 gap-4">
-      <div class="cardish rounded-2xl p-5">
-        <h3 class="text-sm font-semibold text-slate-300">Problem</h3>
-        <p class="text-sm text-slate-300 mt-1">Inconsistent manual watering → stressed plants. Needed a simple, reliable automation.</p>
-      </div>
-      <div class="cardish rounded-2xl p-5">
-        <h3 class="text-sm font-semibold text-slate-300">Approach</h3>
-        <p class="text-sm text-slate-300 mt-1">ESP32 + I²C moisture sensor for thresholds; second ESP32 drives pump; UI + logging via Adafruit IO.</p>
-      </div>
-      <div class="cardish rounded-2xl p-5">
-        <h3 class="text-sm font-semibold text-slate-300">Result</h3>
-        <p class="text-sm text-slate-300 mt-1">Consistent soil moisture with fewer false triggers; easy dashboard control and history.</p>
+  <main class="wrap">
+    <section>
+      <div class="gallery-grid">
+        <figure class="gallery-card">
+          <img src="images/wat_dis.jpg" alt="Automatic water dispenser main setup" class="preview-source" />
+        </figure>
+        <figure class="gallery-card">
+          <img src="images/plant_circuit.jpg" alt="Plant circuit close-up" class="preview-source" />
+        </figure>
+        <figure class="gallery-card">
+          <img src="images/plant_circuit2.jpg" alt="Pump and control wiring" class="preview-source" />
+        </figure>
       </div>
     </section>
 
-    <!-- Build Notes -->
-    <section class="cardish rounded-2xl p-6">
-      <h2 class="text-xl font-bold">Build Notes</h2>
-      <ul class="mt-2 list-disc list-inside text-slate-300 text-sm space-y-1">
-        <li><strong>Architecture:</strong> Sensor node publishes moisture level; controller node actuates pump based on threshold + UI command.</li>
-        <li><strong>Safety:</strong> Minimum cool-down between runs; max run time per cycle; basic dry-run protection.</li>
-        <li><strong>Enclosure:</strong> Printed brackets and splash-resistant routing for tubing and wiring.</li>
-        <li><strong>Observability:</strong> Moisture % and pump events logged to Adafruit IO for trend checks.</li>
+    <section class="panel">
+      <h2 class="section-title">Project Info</h2>
+      <div class="info-grid">
+        <div class="info-block">
+          <h3>Focus</h3>
+          <p>Embedded control, sensing, and simple automation for plant care.</p>
+        </div>
+        <div class="info-block">
+          <h3>Built With</h3>
+          <p>ESP32 boards, moisture sensor, pump hardware, and Adafruit IO.</p>
+        </div>
+        <div class="info-block">
+          <h3>Project Type</h3>
+          <p>IoT / mechatronics project with sensing, actuation, and user monitoring.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="section-title">Overview</h2>
+      <p class="muted">
+        This project was built to automate plant watering using live soil moisture readings. The system monitors moisture levels,
+        triggers a pump when watering is needed, and logs activity through Adafruit IO for simple visibility and control.
+      </p>
+    </section>
+
+    <section class="panel">
+      <h2 class="section-title">What I Built</h2>
+      <ul class="list">
+        <li>An ESP32-based sensing and control setup for moisture monitoring and pump activation.</li>
+        <li>A simple control flow that used thresholds to decide when watering should occur.</li>
+        <li>A dashboard connection through Adafruit IO for monitoring moisture levels and pump events.</li>
+        <li>Basic routing and enclosure considerations for tubing, wiring, and hardware placement.</li>
       </ul>
     </section>
 
-    <!-- Actions -->
-    <section class="flex flex-wrap gap-2">
-      <a href="index.html#projects" class="px-4 py-2 rounded-xl chip">Back to projects</a>
-      <a href="index.html#contact" class="px-4 py-2 rounded-xl bg-accent-500 hover:bg-accent-600 text-slate-900 font-semibold">Contact me</a>
+    <section class="panel">
+      <h2 class="section-title">Design Notes</h2>
+      <ul class="list">
+        <li>The system was designed to reduce inconsistent manual watering.</li>
+        <li>Pump timing and threshold logic helped avoid unnecessary watering cycles.</li>
+        <li>The build combined embedded hardware, sensor integration, and simple user-facing monitoring.</li>
+      </ul>
     </section>
 
-    <!-- Cross-links -->
-    <section class="cardish rounded-2xl p-6">
-      <h2 class="text-lg font-semibold">More Projects</h2>
-      <div class="mt-3 flex flex-wrap gap-2 text-sm">
-        <a href="propeller.html" class="chip rounded-lg px-3 py-1.5 hover:bg-white/10">Toroidal Propeller</a>
-        <a href="arm.html" class="chip rounded-lg px-3 py-1.5 hover:bg-white/10">Automatic Writing Arm</a>
-        <a href="bottle.html" class="chip rounded-lg px-3 py-1.5 hover:bg-white/10">Water Bottle Holder</a>
-        <a href="bike.html" class="chip rounded-lg px-3 py-1.5 hover:bg-white/10">Single Speed Racer</a>
+    <section class="panel">
+      <h2 class="section-title">Key Takeaway</h2>
+      <p class="muted">
+        A simple sensing and pump-control system can make plant care more consistent while also serving as a practical embedded systems project.
+      </p>
+    </section>
+
+    <section class="actions">
+      <a class="btn" href="index.html#projects">Back to projects</a>
+      <a class="btn" href="index.html#contact">Contact</a>
+    </section>
+
+    <section class="panel">
+      <h2 class="section-title">More Projects</h2>
+      <div class="more-projects">
+        <a class="mini-link" href="propeller.html">Toroidal Propeller</a>
+        <a class="mini-link" href="arm.html">Automatic Writing Arm</a>
+        <a class="mini-link" href="bottle.html">Water Bottle Holder</a>
+        <a class="mini-link" href="bike.html">Bike Design</a>
       </div>
     </section>
-
   </main>
 
-  <!-- FOOTER -->
-  <footer class="text-center text-sm text-slate-500 py-8 border-t border-white/10">
-    © 2025 Sameer Khan. All rights reserved.
+  <div class="preview-overlay" id="previewOverlay" aria-hidden="true">
+    <div class="preview-backdrop"></div>
+    <img class="preview-image" id="previewImage" src="" alt="Expanded preview" />
+  </div>
+
+  <footer>
+    <span>© 2026 Sameer Khan</span>
+    <span>San Francisco, CA</span>
   </footer>
+
+  <script>
+    const previewOverlay = document.getElementById('previewOverlay');
+    const previewImage = document.getElementById('previewImage');
+    const previewSources = document.querySelectorAll('.preview-source');
+
+    previewSources.forEach((img) => {
+      img.addEventListener('mouseenter', () => {
+        previewImage.src = img.src;
+        previewImage.alt = img.alt;
+        previewOverlay.classList.add('active');
+      });
+
+      img.addEventListener('mouseleave', () => {
+        previewOverlay.classList.remove('active');
+      });
+
+      img.addEventListener('focus', () => {
+        previewImage.src = img.src;
+        previewImage.alt = img.alt;
+        previewOverlay.classList.add('active');
+      });
+
+      img.addEventListener('blur', () => {
+        previewOverlay.classList.remove('active');
+      });
+    });
+
+    previewOverlay.addEventListener('mouseenter', () => {
+      previewOverlay.classList.remove('active');
+    });
+  </script>
 </body>
 </html>
