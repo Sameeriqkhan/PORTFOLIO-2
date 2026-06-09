@@ -1,539 +1,542 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sameer Khan — Engineering Projects</title>
-<meta name="description" content="A simple engineering project portfolio by Sameer Khan." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<style>
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sameer Khan · Mechanical Engineer</title>
+  <meta name="description" content="Sameer Khan — Mechanical Engineer. Selected engineering projects in mechanical design, prototyping, testing, CAD, and mechatronics." />
+  <meta name="keywords" content="Sameer Khan, Mechanical Engineer, UC Berkeley, CAD, SolidWorks, Onshape, Prototyping, Mechatronics, Test and Validation" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; padding: 0; }
 
-  :root {
-    --bg: #ffffff;
-    --text: #111111;
-    --muted: #5f5f5f;
-    --light: #888888;
-    --border: #dedede;
-    --soft-border: #eeeeee;
-    --surface: #f8f8f8;
-    --surface-2: #f3f3f3;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-size: 15px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  img {
-    display: block;
-    width: 100%;
-  }
-
-  .wrap {
-    width: min(100% - 44px, 1080px);
-    margin: 0 auto;
-  }
-
-  .nav {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--soft-border);
-  }
-
-  .nav-inner {
-    min-height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-  }
-
-  .nav-name {
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 26px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-size: 13px;
-    color: var(--muted);
-    transition: color 0.16s ease;
-  }
-
-  .nav-links a:hover {
-    color: var(--text);
-  }
-
-  .hero {
-    padding: 94px 0 82px;
-    border-bottom: 1px solid var(--soft-border);
-  }
-
-  .hero-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr);
-    gap: 64px;
-    align-items: end;
-  }
-
-  .eyebrow {
-    margin: 0 0 18px;
-    font-size: 12px;
-    line-height: 1;
-    color: var(--light);
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-  }
-
-  .hero h1 {
-    margin: 0;
-    font-size: clamp(48px, 8vw, 88px);
-    line-height: 0.94;
-    letter-spacing: -0.075em;
-    font-weight: 700;
-  }
-
-  .role {
-    margin: 24px 0 0;
-    font-size: clamp(18px, 2vw, 22px);
-    color: var(--text);
-    font-weight: 500;
-    letter-spacing: -0.03em;
-  }
-
-  .line {
-    margin: 10px 0 0;
-    color: var(--muted);
-  }
-
-  .summary-card {
-    border: 1px solid var(--border);
-    background: var(--surface);
-    padding: 24px;
-  }
-
-  .summary-card p {
-    margin: 0;
-    color: var(--muted);
-    font-size: 15px;
-    line-height: 1.75;
-  }
-
-  .summary-card p + p {
-    margin-top: 14px;
-  }
-
-  section {
-    padding: 74px 0;
-    border-bottom: 1px solid var(--soft-border);
-  }
-
-  .section-head {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 40px;
-    align-items: start;
-    margin-bottom: 30px;
-  }
-
-  .section-kicker {
-    margin: 0;
-    font-size: 12px;
-    color: var(--light);
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-  }
-
-  .section-title {
-    margin: 0;
-    font-size: clamp(22px, 3vw, 32px);
-    line-height: 1.1;
-    font-weight: 600;
-    letter-spacing: -0.055em;
-  }
-
-  .projects {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 22px;
-  }
-
-  .project {
-    position: relative;
-    border: 1px solid var(--border);
-    background: #ffffff;
-    transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
-  }
-
-  .project:hover {
-    transform: translateY(-2px);
-    border-color: #bdbdbd;
-    background: #fcfcfc;
-  }
-
-  .project-image {
-    aspect-ratio: 16 / 10;
-    background: var(--surface-2);
-    border-bottom: 1px solid var(--border);
-    overflow: hidden;
-  }
-
-  .project-image img {
-    height: 100%;
-    object-fit: cover;
-    filter: grayscale(10%);
-    transition: filter 0.18s ease, transform 0.18s ease;
-  }
-
-  .project:hover .project-image img {
-    filter: grayscale(0%);
-    transform: scale(1.012);
-  }
-
-  .project-body {
-    padding: 24px;
-  }
-
-  .project-top {
-    display: flex;
-    justify-content: space-between;
-    gap: 18px;
-    align-items: flex-start;
-    margin-bottom: 12px;
-  }
-
-  .project h3 {
-    margin: 0;
-    font-size: 17px;
-    line-height: 1.28;
-    font-weight: 600;
-    letter-spacing: -0.035em;
-  }
-
-  .project-number {
-    color: var(--light);
-    font-size: 12px;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 0.08em;
-  }
-
-  .project p {
-    margin: 0;
-    color: var(--muted);
-    font-size: 14px;
-    line-height: 1.7;
-  }
-
-  .project-meta {
-    margin-top: 18px;
-    padding-top: 16px;
-    border-top: 1px solid var(--soft-border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-  }
-
-  .project-type {
-    color: var(--light);
-    font-size: 12px;
-  }
-
-  .project-link {
-    font-size: 13px;
-    font-weight: 500;
-    white-space: nowrap;
-  }
-
-  .project-link::after {
-    content: " →";
-  }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 40px;
-    align-items: start;
-  }
-
-  .about-copy {
-    max-width: 640px;
-  }
-
-  .about-copy p {
-    margin: 0;
-    color: var(--muted);
-    font-size: 15px;
-    line-height: 1.8;
-  }
-
-  .about-copy p + p {
-    margin-top: 16px;
-  }
-
-  .contact {
-    border-bottom: 0;
-  }
-
-  .contact-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .contact-links a {
-    display: inline-flex;
-    align-items: center;
-    min-height: 42px;
-    padding: 10px 14px;
-    border: 1px solid var(--border);
-    background: #ffffff;
-    font-size: 14px;
-    color: var(--text);
-    transition: background 0.16s ease, border-color 0.16s ease;
-  }
-
-  .contact-links a:hover {
-    background: var(--surface);
-    border-color: #c8c8c8;
-  }
-
-  footer {
-    border-top: 1px solid var(--soft-border);
-    padding: 24px 0;
-    color: var(--light);
-    font-size: 12px;
-  }
-
-  @media (max-width: 820px) {
-    .wrap {
-      width: min(100% - 34px, 1080px);
+    :root {
+      --bg: #0d1117;
+      --panel: #151a22;
+      --panel-soft: #11161d;
+      --line: #2a303a;
+      --line-soft: rgba(255,255,255,.08);
+      --text: #f2f4f8;
+      --muted: #a9b0bd;
+      --subtle: #707987;
+      --accent: #e0a458;
+      --accent-soft: rgba(224,164,88,.12);
+      --radius: 18px;
+      --max: 1180px;
     }
 
-    .hero {
-      padding: 70px 0 58px;
+    html { scroll-behavior: smooth; }
+    body {
+      background:
+        radial-gradient(circle at top right, rgba(224,164,88,.08), transparent 34rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .hero-grid,
-    .section-head,
-    .about-grid {
-      grid-template-columns: 1fr;
-      gap: 26px;
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(13,17,23,.78);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line-soft);
     }
 
-    section {
-      padding: 58px 0;
-    }
-
-    .projects {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (max-width: 540px) {
     .nav-inner {
-      padding: 18px 0;
-      align-items: flex-start;
-      flex-direction: column;
-      gap: 14px;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .nav-name {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -.01em;
     }
 
     .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      list-style: none;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .nav-links a { transition: color .16s ease; }
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .hero-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 54px 24px 42px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 32px;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(2.35rem, 6vw, 4.8rem);
+      line-height: .95;
+      letter-spacing: -.06em;
+      font-weight: 800;
+    }
+
+    .hero p {
+      margin-top: 18px;
+      max-width: 680px;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.15rem);
+    }
+
+    .hero-note {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: 999px;
+      padding: 9px 14px;
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 34px 24px 60px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 74px;
+      display: grid;
       gap: 18px;
     }
 
-    .summary-card,
-    .project-body {
-      padding: 20px;
+    .panel,
+    .project-card {
+      background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.015)), var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
     }
-  }
-</style>
+
+    .panel { padding: 22px; }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      margin-bottom: 12px;
+    }
+
+    .small-title {
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 700;
+      margin-top: 16px;
+      margin-bottom: 4px;
+    }
+
+    .small-title:first-of-type { margin-top: 0; }
+
+    .muted { color: var(--muted); }
+    .subtle { color: var(--subtle); }
+
+    .sidebar p,
+    .sidebar li {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--line-soft);
+      margin: 18px 0;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .chip {
+      border: 1px solid var(--line-soft);
+      background: rgba(255,255,255,.035);
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .main {
+      display: grid;
+      gap: 34px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 18px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.65rem, 3vw, 2.15rem);
+      line-height: 1;
+      letter-spacing: -.05em;
+      font-weight: 800;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 460px;
+      text-align: right;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .project-card {
+      overflow: hidden;
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(224,164,88,.34);
+      background: linear-gradient(180deg, rgba(224,164,88,.045), rgba(255,255,255,.015)), var(--panel);
+    }
+
+    .project-card.featured { grid-column: span 2; }
+
+    .project-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-bottom: 1px solid var(--line-soft);
+      background: var(--panel-soft);
+    }
+
+    .project-card:not(.featured) .project-image { height: 170px; }
+
+    .project-body { padding: 20px; }
+
+    .project-kicker {
+      color: var(--accent);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .project-name {
+      font-size: 18px;
+      line-height: 1.25;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      margin-bottom: 8px;
+    }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .project-meta {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line-soft);
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .project-meta strong { color: var(--text); font-weight: 700; }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+      border: 1px solid var(--line-soft);
+      background: rgba(255,255,255,.035);
+      border-radius: 10px;
+      padding: 8px 11px;
+      transition: border-color .16s ease, background .16s ease;
+    }
+
+    .project-link:hover {
+      border-color: rgba(224,164,88,.45);
+      background: var(--accent-soft);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+    }
+
+    .about-grid .panel p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .contact-links a {
+      border: 1px solid var(--line-soft);
+      background: rgba(255,255,255,.035);
+      border-radius: 12px;
+      padding: 9px 12px;
+      color: var(--muted);
+      font-size: 14px;
+      transition: color .16s ease, border-color .16s ease, background .16s ease;
+    }
+
+    .contact-links a:hover {
+      color: var(--text);
+      border-color: rgba(224,164,88,.45);
+      background: var(--accent-soft);
+    }
+
+    footer {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 28px 24px 38px;
+      border-top: 1px solid var(--line-soft);
+      color: var(--subtle);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; align-items: start; }
+      .hero-note { width: fit-content; }
+      .wrap { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .section-head { display: block; }
+      .section-head p { text-align: left; margin-top: 8px; }
+      .about-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hero-inner { padding-top: 42px; }
+      .project-grid { grid-template-columns: 1fr; }
+      .project-card.featured { grid-column: span 1; }
+      footer { flex-direction: column; }
+    }
+  </style>
 </head>
 <body>
-  <header class="nav">
-    <div class="wrap nav-inner">
-      <a href="#top" class="nav-name">Sameer Khan</a>
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a class="nav-name" href="#">Sameer Khan</a>
       <ul class="nav-links">
         <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">Mechanical Engineer</div>
+        <h1>Selected engineering projects.</h1>
+        <p>Design, prototyping, testing, and hardware systems work by Sameer Khan.</p>
+      </div>
+      <div class="hero-note">Design · Test · Prototype</div>
     </div>
   </header>
 
-  <main id="top">
-    <section class="hero">
-      <div class="wrap hero-grid">
-        <div>
-          <p class="eyebrow">Engineering Portfolio</p>
-          <h1>Sameer Khan</h1>
-          <p class="role">Mechanical Engineer</p>
-          <p class="line">Design • Test • Prototype</p>
-        </div>
-        <div class="summary-card">
-          <p>Selected engineering projects and research across mechanical design, prototyping, testing, and hardware systems.</p>
-          <p>A focused archive of work built through CAD, fabrication, instrumentation, and validation.</p>
-        </div>
-      </div>
-    </section>
+  <main class="wrap">
+    <aside class="sidebar" aria-label="Profile details">
+      <section class="panel">
+        <h2 class="section-title">Education</h2>
+        <p><strong style="color:var(--text)">B.S. Mechanical Engineering</strong></p>
+        <p>University of California, Berkeley</p>
+        <p class="subtle">Dec 2023</p>
+      </section>
 
-    <section id="projects">
-      <div class="wrap">
+      <section class="panel">
+        <h2 class="section-title">Tools & Methods</h2>
+        <div class="small-title">Mechanical Design</div>
+        <p>SolidWorks · Onshape · AutoCAD · NX · Creo · GD&T · DFM/DFA</p>
+
+        <div class="small-title">Prototyping</div>
+        <p>FDM/SLA printing · shop fabrication · iterative build-test cycles</p>
+
+        <div class="small-title">Testing</div>
+        <p>DOE · instrumentation · calibration · data logging · failure analysis</p>
+
+        <div class="small-title">Mechatronics</div>
+        <p>Arduino · ESP32 · sensors · actuators · basic firmware bring-up</p>
+
+        <div class="chips">
+          <span class="chip">CAD</span>
+          <span class="chip">Prototype</span>
+          <span class="chip">Test</span>
+          <span class="chip">Instrumentation</span>
+          <span class="chip">Mechatronics</span>
+        </div>
+      </section>
+    </aside>
+
+    <section class="main">
+      <section id="projects">
         <div class="section-head">
-          <p class="section-kicker">Projects</p>
-          <h2 class="section-title">Selected work</h2>
+          <h2>Projects</h2>
+          <p>A focused collection of engineering work across mechanical design, experimental testing, CAD, and embedded hardware.</p>
         </div>
 
-        <div class="projects">
-          <article class="project">
-            <div class="project-image">
-              <img src="images/toroidal_cover.jpg" alt="Toroidal propeller on thrust test stand" loading="lazy" />
-            </div>
+        <div class="project-grid">
+          <article class="project-card featured">
+            <img class="project-image" src="images/toroidal_cover.jpg" alt="Toroidal propeller experiment on a test stand" loading="lazy" />
             <div class="project-body">
-              <div class="project-top">
-                <h3>Toroidal Propeller Study</h3>
-                <span class="project-number">01</span>
-              </div>
-              <p>Designed and tested toroidal propeller geometries using 3D printing and a custom instrumented thrust stand.</p>
+              <div class="project-kicker">Experimental Testing</div>
+              <h3 class="project-name">Toroidal Propeller Study</h3>
+              <p class="project-desc">Designed and tested toroidal propeller geometries using 3D printing, a custom thrust stand, and comparative MATLAB analysis.</p>
               <div class="project-meta">
-                <span class="project-type">Testing / CAD / Instrumentation</span>
-                <a href="propeller.html" class="project-link">View Project</a>
+                <p><strong>Built:</strong> propeller prototypes, test setup, sensor workflow</p>
+                <p><strong>Tools:</strong> SolidWorks, FDM printing, MATLAB, instrumentation</p>
               </div>
+              <a class="project-link" href="propeller.html">View project →</a>
             </div>
           </article>
 
-          <article class="project">
-            <div class="project-image">
-              <img src="images/arm_cad.png" alt="Automatic writing arm CAD model" loading="lazy" />
-            </div>
+          <article class="project-card">
+            <img class="project-image" src="images/arm_cad.png" alt="Automatic writing arm CAD model" loading="lazy" />
             <div class="project-body">
-              <div class="project-top">
-                <h3>Automatic Writing Arm</h3>
-                <span class="project-number">02</span>
-              </div>
-              <p>Built a motion-controlled writing mechanism with CAD design, kinematic analysis, and Arduino-based control.</p>
+              <div class="project-kicker">Mechanism Design</div>
+              <h3 class="project-name">Automatic Writing Arm</h3>
+              <p class="project-desc">Built a pen-plotting mechanism that translated GUI-generated paths into controlled mechanical motion.</p>
               <div class="project-meta">
-                <span class="project-type">Mechanism Design / Controls</span>
-                <a href="arm.html" class="project-link">View Project</a>
+                <p><strong>Built:</strong> mechanical arm, calibration workflow, motion path filtering</p>
+                <p><strong>Tools:</strong> Arduino, kinematics, CAD, prototyping</p>
               </div>
+              <a class="project-link" href="arm.html">View project →</a>
             </div>
           </article>
 
-          <article class="project">
-            <div class="project-image">
-              <img src="images/wat_dis.jpg" alt="Automatic water dispenser prototype" loading="lazy" />
-            </div>
+          <article class="project-card">
+            <img class="project-image" src="images/wat_dis.jpg" alt="Automatic water dispenser prototype" loading="lazy" />
             <div class="project-body">
-              <div class="project-top">
-                <h3>IoT Water Dispenser</h3>
-                <span class="project-number">03</span>
-              </div>
-              <p>Created an ESP32-based watering system with soil moisture sensing, a custom enclosure, and automated control.</p>
+              <div class="project-kicker">IoT Hardware</div>
+              <h3 class="project-name">Automatic Water Dispenser</h3>
+              <p class="project-desc">Designed an ESP32-based soil-moisture system with sensor feedback, control thresholds, and a custom enclosure.</p>
               <div class="project-meta">
-                <span class="project-type">Mechatronics / Enclosure Design</span>
-                <a href="dispenser.html" class="project-link">View Project</a>
+                <p><strong>Built:</strong> sensing circuit, control logic, enclosure</p>
+                <p><strong>Tools:</strong> ESP32, sensors, enclosure design, prototyping</p>
               </div>
+              <a class="project-link" href="dispenser.html">View project →</a>
             </div>
           </article>
 
-          <article class="project">
-            <div class="project-image">
-              <img src="images/water_bottle.png" alt="Ergonomic water bottle holder" loading="lazy" />
-            </div>
+          <article class="project-card">
+            <img class="project-image" src="images/water_bottle.png" alt="Ergonomic water bottle holder" loading="lazy" />
             <div class="project-body">
-              <div class="project-top">
-                <h3>Ergonomic Bottle Holder</h3>
-                <span class="project-number">04</span>
-              </div>
-              <p>Designed and prototyped a lightweight everyday carry holder through iterative CAD, 3D printing, and fit testing.</p>
+              <div class="project-kicker">Product Design</div>
+              <h3 class="project-name">Ergonomic Bottle Holder</h3>
+              <p class="project-desc">Developed a lightweight carry accessory through iterative CAD modeling, 3D printing, and physical fit testing.</p>
               <div class="project-meta">
-                <span class="project-type">Product Design / Prototyping</span>
-                <a href="bottle.html" class="project-link">View Project</a>
+                <p><strong>Built:</strong> printed prototypes, integrated storage features, ergonomic form</p>
+                <p><strong>Tools:</strong> Onshape, FDM printing, product iteration</p>
               </div>
+              <a class="project-link" href="bottle.html">View project →</a>
             </div>
           </article>
 
-          <article class="project">
-            <div class="project-image">
-              <img src="images/bike.jpg" alt="Bike frame design" loading="lazy" />
-            </div>
+          <article class="project-card">
+            <img class="project-image" src="images/bike.jpg" alt="Bike frame design" loading="lazy" />
             <div class="project-body">
-              <div class="project-top">
-                <h3>Bike Frame Design</h3>
-                <span class="project-number">05</span>
-              </div>
-              <p>Modeled a bike frame concept with a focus on geometry, structure, and manufacturable mechanical design.</p>
+              <div class="project-kicker">CAD Design</div>
+              <h3 class="project-name">Bike Frame Design</h3>
+              <p class="project-desc">Modeled a bike frame concept with attention to geometry, structure, manufacturability, and presentation visuals.</p>
               <div class="project-meta">
-                <span class="project-type">CAD / Structural Design</span>
-                <a href="bike.html" class="project-link">View Project</a>
+                <p><strong>Built:</strong> frame model, component layout, animated design presentation</p>
+                <p><strong>Tools:</strong> Creo, 3ds Max, CAD modeling</p>
               </div>
-            </div>
-          </article>
-
-          <article class="project">
-            <div class="project-image" aria-label="Neonatal dialysis system project image placeholder"></div>
-            <div class="project-body">
-              <div class="project-top">
-                <h3>Neonatal Dialysis System</h3>
-                <span class="project-number">06</span>
-              </div>
-              <p>Contributed to the development and validation of a neonatal peritoneal dialysis system with sensors, valves, and benchtop testing.</p>
-              <div class="project-meta">
-                <span class="project-type">Medical Device / Validation</span>
-                <a href="#contact" class="project-link">Details Coming Soon</a>
-              </div>
+              <a class="project-link" href="bike.html">View project →</a>
             </div>
           </article>
         </div>
-      </div>
+      </section>
+
+      <section id="about" class="about-grid">
+        <div class="panel">
+          <h2 class="section-title">About</h2>
+          <p>I’m a mechanical engineer focused on practical hardware work: modeling parts, building prototypes, setting up tests, and using data to improve designs.</p>
+          <div class="divider"></div>
+          <p>My project work spans experimental propeller testing, mechatronics, product design, and medical-device research.</p>
+        </div>
+
+        <div class="panel" id="contact">
+          <h2 class="section-title">Contact</h2>
+          <p class="muted">Email or connect with me here.</p>
+          <div class="contact-links">
+            <a href="mailto:Sameeriqkhan@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/sameerikhan/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://github.com/sameerikhan" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </section>
     </section>
-
-    <section id="about">
-      <div class="wrap about-grid">
-        <p class="section-kicker">About</p>
-        <div class="about-copy">
-          <h2 class="section-title">Mechanical design, prototyping, and test-focused engineering.</h2>
-          <p>I'm a mechanical engineer interested in product development, prototyping, testing, and hardware systems.</p>
-          <p>My work spans medical devices, experimental testing, CAD design, and mechatronics.</p>
-        </div>
-      </div>
-    </section>
-
   </main>
 
   <footer>
-    <div class="wrap">© 2026 Sameer Khan</div>
+    <span>© 2026 Sameer Khan</span>
+    <span>San Francisco, CA</span>
   </footer>
 </body>
 </html>
-
