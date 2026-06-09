@@ -211,17 +211,75 @@
       background: var(--panel-soft);
     }
 
-    .image-card img {
+    .zoom-frame {
+      overflow: hidden;
+      background: var(--panel-soft);
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .image-card.large .zoom-frame { height: 420px; }
+    .image-card.small .zoom-frame { height: 201px; }
+
+    .zoom-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-bottom: 1px solid var(--line-soft);
+      transition: transform .38s ease, filter .38s ease;
+      transform-origin: center center;
+      will-change: transform;
+    }
+
+    .image-card:hover .zoom-frame img,
+    .image-card:focus-within .zoom-frame img {
+      transform: scale(1.14);
+      filter: contrast(1.04);
+    }
+
+    .image-card:hover,
+    .image-card:focus-within { cursor: zoom-in; }
+
+    .screen-preview {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-items: center;
+      padding: 40px;
+      background: rgba(5, 8, 13, .72);
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .18s ease, visibility .18s ease;
+    }
+
+    .screen-preview img {
+      max-width: min(92vw, 1040px);
+      max-height: 84vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      box-shadow: 0 24px 80px rgba(0,0,0,.58);
+      transform: scale(.96);
       transition: transform .2s ease;
     }
 
-    .image-card:hover img { transform: scale(1.025); }
-    .image-card.large { min-height: 420px; }
-    .image-card.small { min-height: 201px; }
+    .image-card:hover .screen-preview,
+    .image-card:focus-within .screen-preview {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .image-card:hover .screen-preview img,
+    .image-card:focus-within .screen-preview img {
+      transform: scale(1);
+    }
+
+    @media (max-width: 700px) {
+      .screen-preview { display: none; }
+    }
 
     .gallery-side {
       display: grid;
@@ -384,16 +442,31 @@
     <section class="main">
       <section class="gallery" aria-label="Project images">
         <figure class="image-card large">
-          <img src="images/toroidal_cover.jpg" alt="Toroidal propeller prototype mounted on test stand" loading="lazy" />
+          <div class="zoom-frame">
+            <img src="images/toroidal_cover.jpg" alt="Toroidal propeller prototype mounted on test stand" loading="lazy" />
+            <div class="screen-preview" aria-hidden="true">
+              <img src="images/toroidal_cover.jpg" alt="" />
+            </div>
+          </div>
           <figcaption class="caption">Toroidal propeller prototype during testing.</figcaption>
         </figure>
         <div class="gallery-side">
           <figure class="image-card small">
-            <img src="images/propellers.jpg" alt="Toroidal and 3-blade propeller prototypes" loading="lazy" />
+            <div class="zoom-frame">
+              <img src="images/propellers.jpg" alt="Toroidal and 3-blade propeller prototypes" loading="lazy" />
+              <div class="screen-preview" aria-hidden="true">
+                <img src="images/propellers.jpg" alt="" />
+              </div>
+            </div>
             <figcaption class="caption">Prototype comparison.</figcaption>
           </figure>
           <figure class="image-card small">
-            <img src="images/circuit_setup.jpg" alt="Instrumentation setup for propeller testing" loading="lazy" />
+            <div class="zoom-frame">
+              <img src="images/circuit_setup.jpg" alt="Instrumentation setup for propeller testing" loading="lazy" />
+              <div class="screen-preview" aria-hidden="true">
+                <img src="images/circuit_setup.jpg" alt="" />
+              </div>
+            </div>
             <figcaption class="caption">Sensor and data collection setup.</figcaption>
           </figure>
         </div>
@@ -446,7 +519,6 @@
 
   <footer>
     <span>© 2026 Sameer Khan</span>
-    <span>San Francisco, CA</span>
   </footer>
 </body>
 </html>
