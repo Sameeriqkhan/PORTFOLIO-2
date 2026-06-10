@@ -19,25 +19,24 @@
     * { margin: 0; padding: 0; }
 
     :root {
-      --bg: #0d1117;
-      --panel: #151a22;
-      --panel-soft: #11161d;
-      --line: #2a303a;
-      --line-soft: rgba(255,255,255,.08);
-      --text: #f2f4f8;
-      --muted: #a9b0bd;
-      --subtle: #707987;
-      --accent: #e0a458;
-      --accent-soft: rgba(224,164,88,.12);
+      --bg: #ffffff;
+      --panel: #ffffff;
+      --panel-soft: #f7f7f7;
+      --line: #e7e7e7;
+      --line-soft: #eeeeee;
+      --line-strong: #d7d7d7;
+      --text: #111111;
+      --muted: #5f5f5f;
+      --subtle: #8a8a8a;
+      --hover: #f4f4f4;
       --radius: 18px;
-      --max: 1180px;
+      --max: 1120px;
+      --shadow: 0 10px 30px rgba(0,0,0,.055);
     }
 
     html { scroll-behavior: smooth; }
     body {
-      background:
-        radial-gradient(circle at top right, rgba(224,164,88,.08), transparent 34rem),
-        var(--bg);
+      background: var(--bg);
       color: var(--text);
       font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       line-height: 1.6;
@@ -51,9 +50,9 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(13,17,23,.78);
+      background: rgba(255,255,255,.88);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--line-soft);
+      border-bottom: 1px solid var(--line);
     }
 
     .nav-inner {
@@ -84,12 +83,15 @@
     .nav-links a { transition: color .16s ease; }
     .nav-links a:hover { color: var(--text); }
 
-    .hero { border-bottom: 1px solid var(--line-soft); }
+    .hero {
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+    }
 
     .hero-inner {
       max-width: var(--max);
       margin: 0 auto;
-      padding: 44px 24px 34px;
+      padding: 42px 24px 34px;
     }
 
     .breadcrumbs {
@@ -103,7 +105,7 @@
     .breadcrumbs span { margin: 0 8px; }
 
     .eyebrow {
-      color: var(--accent);
+      color: var(--subtle);
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: .16em;
@@ -144,10 +146,11 @@
     }
 
     .panel {
-      background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.015)), var(--panel);
+      background: var(--panel);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 22px;
+      box-shadow: var(--shadow);
     }
 
     .section-title {
@@ -213,8 +216,8 @@
     }
 
     .chip {
-      border: 1px solid var(--line-soft);
-      background: rgba(255,255,255,.035);
+      border: 1px solid var(--line);
+      background: var(--panel-soft);
       border-radius: 999px;
       padding: 5px 10px;
       font-size: 12px;
@@ -229,6 +232,7 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--panel-soft);
+      box-shadow: var(--shadow);
     }
 
     .video-wrap iframe {
@@ -252,13 +256,14 @@
       border: 1px solid var(--line);
       background: var(--panel-soft);
       cursor: zoom-in;
+      box-shadow: var(--shadow);
     }
 
     .image-frame::before {
       content: "";
       position: fixed;
       inset: 0;
-      background: rgba(6,8,12,.56);
+      background: rgba(255,255,255,.46);
       opacity: 0;
       pointer-events: none;
       transition: opacity .18s ease;
@@ -277,6 +282,7 @@
 
     @media (hover:hover) and (pointer:fine) {
       .image-frame:hover::before { opacity: 1; }
+
       .image-frame:hover img {
         position: fixed;
         top: 50%;
@@ -285,11 +291,11 @@
         height: min(76vh, 660px);
         transform: translate(-50%, -50%);
         object-fit: contain;
-        background: var(--panel-soft);
+        background: #ffffff;
         padding: 8px;
-        border: 1px solid rgba(255,255,255,.16);
-        box-shadow: 0 30px 90px rgba(0,0,0,.62);
-        filter: contrast(1.04);
+        border: 1px solid #d9d9d9;
+        box-shadow: 0 30px 90px rgba(0,0,0,.22);
+        filter: contrast(1.03);
         z-index: 90;
       }
     }
@@ -302,8 +308,8 @@
     }
 
     .button {
-      border: 1px solid var(--line-soft);
-      background: rgba(255,255,255,.035);
+      border: 1px solid var(--line);
+      background: var(--panel-soft);
       border-radius: 12px;
       padding: 9px 12px;
       color: var(--muted);
@@ -314,15 +320,15 @@
 
     .button:hover {
       color: var(--text);
-      border-color: rgba(224,164,88,.45);
-      background: var(--accent-soft);
+      border-color: var(--line-strong);
+      background: var(--hover);
     }
 
     footer {
       max-width: var(--max);
       margin: 0 auto;
       padding: 28px 24px 38px;
-      border-top: 1px solid var(--line-soft);
+      border-top: 1px solid var(--line);
       color: var(--subtle);
       font-size: 13px;
       display: flex;
@@ -384,7 +390,7 @@
       </section>
 
       <section class="panel">
-        <h2 class="section-title">Files</h2>
+        <h2 class="section-title">Links</h2>
         <div class="actions">
           <a class="button" href="index.html#projects">Back to Projects</a>
           <a class="button" href="index.html#contact">Contact</a>
@@ -404,7 +410,7 @@
         <div class="video-wrap">
           <iframe
             src="https://www.youtube.com/embed/fLyE0Lb4RWU"
-            title="Single Speed Racer — Design Video"
+            title="Bike Frame Design — Design Video"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen
             referrerpolicy="strict-origin-when-cross-origin">
